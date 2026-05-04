@@ -1,1 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RMG Worker Health Survey | গার্মেন্টস শ্রমিক স্বাস্থ্য জরিপ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Source+Sans+3:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#0e6b52;--tl:#e1f5ee;--tm:#1d9e75;--td:#085041;
+  --red:#a32d2d;--rl:#fcebeb;
+  --amber:#ba7517;--al:#faeeda;
+  --purple:#533b8e;--pl:#eeedfe;
+  --blue:#185fa5;--bl:#e6f1fb;
+  --coral:#993c1d;--cl:#faece7;
+  --green:#3b6d11;--gl:#eaf3de;
+  --pink:#993556;--pkl:#fbeaf0;
+  --g1:#f5f4f0;--g2:#e8e6e0;--g4:#9a9890;--g7:#3a3835;
+  --font-d:'Playfair Display',Georgia,serif;
+  --font-e:'Source Sans 3',sans-serif;
+  --font-b:'Noto Sans Bengali','Source Sans 3',sans-serif;
+  --r:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-e);background:var(--g1);color:var(--g7);line-height:1.65;font-size:15px}
+body.bn{font-family:var(--font-b)}
 
+/* LANG TOGGLE */
+.lang-bar{background:#fff;border-bottom:1px solid var(--g2);padding:.5rem 1.5rem;display:flex;justify-content:flex-end;align-items:center;gap:8px;position:sticky;top:0;z-index:200;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.lang-label{font-size:12px;color:var(--g4);font-weight:500}
+.lang-toggle{display:flex;background:var(--g1);border-radius:20px;padding:3px;border:1px solid var(--g2)}
+.lang-btn{padding:4px 14px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--g4);transition:all .2s;font-family:var(--font-e)}
+.lang-btn.active{background:var(--teal);color:#fff}
+.lang-btn.bn-btn{font-family:var(--font-b)}
+
+/* HEADER */
+.hdr{background:var(--td);color:#fff;padding:2.2rem 1.5rem 2rem;text-align:center;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-40px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.04)}
+.badge{display:inline-block;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:.8rem}
+.hdr h1{font-family:var(--font-d);font-size:clamp(1.3rem,3.5vw,2rem);line-height:1.25;margin-bottom:.4rem;position:relative}
+.hdr h1 .bn-title{font-family:var(--font-b);font-size:clamp(1.1rem,3vw,1.6rem)}
+.hdr p{font-size:13px;opacity:.75;max-width:540px;margin:.3rem auto 0;position:relative}
+.hdr p .bn{font-family:var(--font-b)}
+
+/* PROGRESS */
+.prog-wrap{background:#fff;border-bottom:1px solid var(--g2);padding:.85rem 1.5rem;position:sticky;top:40px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.prog-info{display:flex;justify-content:space-between;font-size:12px;color:var(--g4);margin-bottom:5px;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+.prog-bg{background:var(--g2);height:5px;border-radius:10px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--tm),var(--teal));border-radius:10px;transition:width .4s ease;width:12.5%}
+
+.wrap{max-width:720px;margin:0 auto;padding:2rem 1.25rem 4rem}
+
+/* SECTION CARDS */
+.sc{background:#fff;border-radius:var(--r);box-shadow:0 2px 16px rgba(0,0,0,.07);padding:2rem 2rem 1.5rem;margin-bottom:2rem;display:none;animation:si .3s ease}
+.sc.active{display:block}
+@keyframes si{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:1.75rem;padding-bottom:1.25rem;border-bottom:1px solid var(--g2)}
+.sn{width:42px;height:42px;background:var(--tl);color:var(--td);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0}
+.st{font-family:var(--font-d);font-size:1.15rem;color:var(--td);line-height:1.2}
+.st .bn{font-family:var(--font-b);font-size:1rem;color:var(--g4);display:block;margin-top:2px}
+.ss{font-size:13px;color:var(--g4);margin-top:2px}
+
+/* FORM ELEMENTS */
+.fg{margin-bottom:1.4rem}
+label{display:block;font-size:14px;font-weight:600;color:var(--g7);margin-bottom:6px}
+label .bn{display:block;font-family:var(--font-b);font-size:13px;font-weight:500;color:var(--g4);margin-top:1px}
+.req{color:var(--red);margin-left:3px}
+.hint{font-weight:400;color:var(--g4);font-size:12px;margin-left:6px}
+input[type=text],input[type=number],select,textarea{width:100%;padding:9px 12px;border:1.5px solid var(--g2);border-radius:7px;font-size:14px;color:var(--g7);background:#fff;transition:border-color .2s;appearance:none;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--tm);box-shadow:0 0 0 3px rgba(29,158,117,.12)}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%239a9890' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+textarea{resize:vertical;min-height:72px}
+
+/* RADIO / CHECK */
+.rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.rg.c1{grid-template-columns:1fr}.rg.c2{grid-template-columns:1fr 1fr}
+.ro{position:relative}
+.ro input{position:absolute;opacity:0;width:0;height:0}
+.ro label{display:flex;align-items:flex-start;gap:8px;padding:9px 12px;border:1.5px solid var(--g2);border-radius:7px;cursor:pointer;font-size:13px;font-weight:500;transition:all .15s;margin:0}
+.ro label:hover,.ro input:checked+label{border-color:var(--tm);background:var(--tl);color:var(--td)}
+.ro label .bn{font-family:var(--font-b);font-size:12px;color:var(--g4);font-weight:400;margin-top:1px;display:block;line-height:1.3}
+.ro input:checked+label .bn{color:var(--teal)}
+
+/* PILL TAGS */
+.pill-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.pill{position:relative}
+.pill input{position:absolute;opacity:0;width:0;height:0}
+.pill label{display:inline-flex;flex-direction:column;align-items:flex-start;padding:5px 12px;border:1.5px solid var(--g2);border-radius:20px;cursor:pointer;font-size:12.5px;font-weight:500;background:#fff;transition:all .15s;margin:0;line-height:1.3}
+.pill label .bn{font-family:var(--font-b);font-size:11px;color:var(--g4);margin-top:1px}
+.pill label:hover{border-color:var(--tm);background:var(--tl)}
+.pill input:checked+label{background:var(--teal);border-color:var(--teal);color:#fff}
+.pill input:checked+label .bn{color:rgba(255,255,255,.8)}
+
+/* colored pill groups */
+.pill.phys input:checked+label{background:var(--coral);border-color:var(--coral)}
+.pill.skin input:checked+label{background:var(--amber);border-color:var(--amber)}
+.pill.mental input:checked+label{background:var(--purple);border-color:var(--purple)}
+.pill.injury input:checked+label{background:var(--blue);border-color:var(--blue)}
+.pill.women input:checked+label{background:var(--pink);border-color:var(--pink)}
+
+/* CAT BLOCKS */
+.cb{border-radius:var(--r);padding:1.2rem 1.2rem .9rem;margin-bottom:1.25rem}
+.cb.phys{background:var(--cl);border:1px solid #f5c4b3}
+.cb.skin{background:var(--al);border:1px solid #fac775}
+.cb.mental{background:var(--pl);border:1px solid #afa9ec}
+.cb.injury{background:var(--bl);border:1px solid #b5d4f4}
+.cb.women{background:var(--pkl);border:1px solid #f4c0d1}
+.cat-h{display:flex;align-items:center;gap:10px;margin-bottom:.85rem}
+.cat-ico{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;color:#fff}
+.phys .cat-ico{background:var(--coral)}.skin .cat-ico{background:var(--amber)}
+.mental .cat-ico{background:var(--purple)}.injury .cat-ico{background:var(--blue)}
+.women .cat-ico{background:var(--pink)}
+.cat-title{font-weight:600;font-size:14px}
+.cat-title .bn{font-family:var(--font-b);font-size:12px;color:var(--g4);font-weight:400;display:block}
+.sel-ct{font-size:11px;font-weight:600;margin-left:6px;opacity:.65}
+
+/* LIKERT */
+.lk{background:var(--g1);border-radius:8px;padding:1rem;margin-top:4px}
+.lk-lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--g4);margin-bottom:8px;font-weight:500}
+.lk-lbl .bn{font-family:var(--font-b);font-size:11px}
+.lk-opts{display:flex;justify-content:space-between;gap:4px}
+.lk-opts label{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;font-weight:500;color:var(--g4);cursor:pointer;margin:0;flex:1;text-align:center}
+.lk-opts input[type=radio]{accent-color:var(--teal);width:18px;height:18px}
+.lk-opts label .sub{font-size:10px;font-family:var(--font-b)}
+
+/* INFO BOX */
+.ib{border-radius:0 7px 7px 0;padding:11px 14px;font-size:13px;margin-bottom:1.25rem;line-height:1.5;border-left:3px solid var(--tm);background:var(--tl);color:var(--td)}
+.ib .bn{font-family:var(--font-b);font-size:12px;color:var(--teal);margin-top:3px;display:block}
+.ib.warn{background:var(--al);border-color:var(--amber);color:#7a4a00}
+.ib.warn .bn{color:var(--amber)}
+
+/* PROD SELF-ASSESS SPECIAL STYLE */
+.prod-card{border:1.5px solid var(--g2);border-radius:var(--r);padding:1.25rem;margin-bottom:1.25rem;background:#fafaf8;position:relative;overflow:hidden}
+.prod-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--tm)}
+.prod-q{font-size:14px;font-weight:600;color:var(--g7);margin-bottom:.25rem}
+.prod-q .bn{font-family:var(--font-b);font-size:13px;color:var(--g4);font-weight:400;display:block;margin-top:2px}
+.prod-q .qnum{width:24px;height:24px;background:var(--tl);color:var(--td);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-right:8px;flex-shrink:0;vertical-align:middle}
+.prod-opts{margin-top:.75rem;display:grid;grid-template-columns:1fr;gap:6px}
+.po{position:relative}
+.po input{position:absolute;opacity:0;width:0;height:0}
+.po label{display:flex;flex-direction:column;padding:10px 14px;border:1.5px solid var(--g2);border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--g7);transition:all .15s;margin:0;background:#fff}
+.po label .bn{font-family:var(--font-b);font-size:12px;color:var(--g4);font-weight:400;margin-top:2px}
+.po label:hover{border-color:var(--tm);background:var(--tl)}
+.po input:checked+label{border-color:var(--teal);background:var(--tl);color:var(--td)}
+.po input:checked+label .bn{color:var(--teal)}
+/* Special colors per question */
+.prod-card.q1 .po input:checked+label{border-color:var(--teal);background:var(--tl)}
+.prod-card.q2 .po input:checked+label{border-color:var(--amber);background:var(--al)}
+.prod-card.q3 .po input:checked+label{border-color:var(--blue);background:var(--bl)}
+.prod-card.q4 .po input:checked+label{border-color:var(--coral);background:var(--cl)}
+
+/* TWO COL */
+.tc{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:500px){.tc{grid-template-columns:1fr}}
+
+/* CONSENT */
+.cbox{border:1.5px solid var(--g2);border-radius:var(--r);padding:1.5rem;margin-bottom:1.25rem;background:#fafaf8;font-size:13px;line-height:1.7;color:#555;max-height:230px;overflow-y:auto}
+.cbox h3{font-size:14px;color:var(--g7);margin-bottom:8px}
+.cbox h3 .bn{font-family:var(--font-b);font-size:13px;display:block;color:var(--g4);font-weight:400}
+.ca{display:flex;align-items:flex-start;gap:10px;cursor:pointer}
+.ca input[type=checkbox]{margin-top:4px;accent-color:var(--teal);width:16px;height:16px;flex-shrink:0}
+.ca span{font-size:13px;font-weight:500}
+.ca span .bn{font-family:var(--font-b);font-size:12px;color:var(--g4);font-weight:400;display:block;margin-top:2px}
+
+/* NAV */
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--g2)}
+.btn{padding:10px 24px;border-radius:7px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;border:none}
+.btn-o{background:#fff;border:1.5px solid var(--g2);color:var(--g7)}
+.btn-o:hover{border-color:var(--tm);color:var(--teal)}
+.btn-p{background:var(--teal);color:#fff}
+.btn-p:hover{background:var(--td);transform:translateY(-1px)}
+.btn-s{background:var(--td);color:#fff;padding:12px 32px;font-size:15px}
+.btn-s:hover{background:var(--teal)}
+
+/* SUCCESS */
+.suc{text-align:center;padding:3rem 2rem}
+.sico{width:72px;height:72px;background:var(--tl);border-radius:50%;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center}
+.suc h2{font-family:var(--font-d);color:var(--td);font-size:1.6rem;margin-bottom:.4rem}
+.suc h2 .bn{font-family:var(--font-b);font-size:1.2rem;display:block;margin-top:4px}
+.suc p{color:var(--g4);font-size:14px;max-width:360px;margin:0 auto}
+.suc p .bn{font-family:var(--font-b);font-size:13px;display:block;margin-top:3px}
+
+/* OVERLAY */
+.ov{display:none;position:fixed;inset:0;background:rgba(255,255,255,.88);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:14px;font-weight:600;color:var(--td)}
+.spin{width:36px;height:36px;border:3px solid var(--g2);border-top-color:var(--teal);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ov p.bn{font-family:var(--font-b)}
+
+.err-b{display:none;background:var(--rl);border:1px solid var(--red);border-radius:7px;padding:12px 14px;font-size:13px;color:var(--red);margin-bottom:1rem}
+.ferr{font-size:12px;color:var(--red);margin-top:4px;display:none}
+
+.sec-div{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--g4);margin:1.25rem 0 .75rem;padding-bottom:.35rem;border-bottom:1px solid var(--g2)}
+.sec-div .bn{font-family:var(--font-b);text-transform:none;letter-spacing:0;margin-left:6px}
+
+footer{text-align:center;font-size:12px;color:var(--g4);padding:1.5rem;border-top:1px solid var(--g2)}
+footer .bn{font-family:var(--font-b);display:block;margin-top:2px}
+
+/* Hide/show by language */
+.en-only,.bn-only{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- LANGUAGE TOGGLE BAR -->
+<div class="lang-bar">
+  <span class="lang-label" id="lang-label">Language / ভাষা:</span>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">English</button>
+    <button class="lang-btn bn-btn" id="btn-bn" onclick="setLang('bn')">বাংলা</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="badge" id="hdr-badge">PhD Research Survey</div>
+  <h1>
+    <span class="en-t">Workplace Illness Trends<br>in Bangladesh RMG Sector</span>
+    <span class="bn-t bn-title" style="display:none">বাংলাদেশ তৈরি পোশাক শিল্পে<br>কর্মক্ষেত্রের রোগব্যাধির প্রবণতা</span>
+  </h1>
+  <p>
+    <span class="en-t">This survey collects health data from garment workers to support academic research. All responses are anonymous.</span>
+    <span class="bn-t" style="display:none;font-family:var(--font-b)">এই জরিপটি একাডেমিক গবেষণার জন্য পোশাক শ্রমিকদের স্বাস্থ্য তথ্য সংগ্রহ করে। সকল উত্তর গোপনীয়।</span>
+  </p>
+</header>
+
+<!-- PROGRESS -->
+<div class="prog-wrap">
+  <div class="prog-info">
+    <span id="sec-label">Section 1 of 8 — Informed Consent</span>
+    <span id="sec-pct">13%</span>
+  </div>
+  <div class="prog-bg"><div class="prog-fill" id="prog-fill"></div></div>
+</div>
+
+<div class="ov" id="overlay">
+  <div class="spin"></div>
+  <p class="en-t">Submitting response…</p>
+  <p class="bn-t" style="display:none;font-family:var(--font-b)">তথ্য জমা দেওয়া হচ্ছে…</p>
+</div>
+
+<main class="wrap">
+
+<!-- ===== S1: CONSENT ===== -->
+<div class="sc active" id="s1">
+  <div class="sh"><div class="sn">1</div><div>
+    <div class="st">Informed Consent <span class="bn" style="display:none">অবহিত সম্মতি</span></div>
+    <div class="ss en-t">Please read carefully before proceeding</div>
+    <div class="ss bn-t" style="display:none;font-family:var(--font-b)">এগিয়ে যাওয়ার আগে মনোযোগ দিয়ে পড়ুন</div>
+  </div></div>
+  <div class="cbox">
+    <h3>
+      <span class="en-t">Research Information Sheet</span>
+      <span class="bn-t" style="display:none;font-family:var(--font-b)">গবেষণা তথ্যপত্র</span>
+    </h3>
+    <div class="en-t">
+      <p>You are invited to participate in a study: <strong>"Workplace Illness Trends in the Bangladesh RMG Sector"</strong> — a PhD research programme.</p><br>
+      <p><strong>Purpose:</strong> To understand occupational illness types, frequency, and risk factors among RMG workers and their impact on productivity.</p><br>
+      <p><strong>Confidentiality:</strong> Your identity remains completely anonymous. No names or factory names will be published.</p><br>
+      <p><strong>Voluntariness:</strong> Participation is voluntary. You may withdraw at any time without consequence.</p><br>
+      <p><strong>Duration:</strong> Approximately 12–18 minutes.</p>
+    </div>
+    <div class="bn-t" style="display:none;font-family:var(--font-b)">
+      <p>আপনাকে একটি গবেষণায় অংশ নিতে আমন্ত্রণ জানানো হচ্ছে: <strong>"বাংলাদেশ তৈরি পোশাক খাতে কর্মক্ষেত্রের রোগব্যাধির প্রবণতা"</strong> — একটি পিএইচডি গবেষণা কর্মসূচি।</p><br>
+      <p><strong>উদ্দেশ্য:</strong> পোশাক শ্রমিকদের মধ্যে পেশাগত রোগের ধরন, ঘটনার হার ও ঝুঁকির কারণ এবং উৎপাদনশীলতায় তার প্রভাব বোঝা।</p><br>
+      <p><strong>গোপনীয়তা:</strong> আপনার পরিচয় সম্পূর্ণ গোপন থাকবে। কোনো নাম বা কারখানার নাম প্রকাশ করা হবে না।</p><br>
+      <p><strong>স্বেচ্ছামূলকতা:</strong> অংশগ্রহণ সম্পূর্ণ স্বেচ্ছামূলক। আপনি যেকোনো সময় প্রত্যাহার করতে পারবেন।</p><br>
+      <p><strong>সময়কাল:</strong> আনুমানিক ১২–১৮ মিনিট।</p>
+    </div>
+  </div>
+  <label class="ca"><input type="checkbox" id="consent-chk">
+    <span>
+      <span class="en-t">I have read and understood the information above and voluntarily agree to participate.</span>
+      <span class="bn-t" style="display:none;font-family:var(--font-b)">আমি উপরের তথ্য পড়েছি এবং বুঝেছি এবং স্বেচ্ছায় অংশ নিতে সম্মত।</span>
+    </span>
+  </label>
+  <div class="ferr" id="consent-err">
+    <span class="en-t">You must agree to proceed.</span>
+    <span class="bn-t" style="display:none;font-family:var(--font-b)">এগিয়ে যেতে আপনাকে সম্মত হতে হবে।</span>
+  </div>
+  <div class="nav" style="justify-content:flex-end">
+    <button class="btn btn-p" onclick="next(2)">
+      <span class="en-t">Begin Survey →</span>
+      <span class="bn-t" style="display:none">জরিপ শুরু করুন →</span>
+    </button>
+  </div>
+</div>
+
+<!-- ===== S2: DEMOGRAPHICS ===== -->
+<div class="sc" id="s2">
+  <div class="sh"><div class="sn">2</div><div>
+    <div class="st">Personal & Demographic Information <span class="bn" style="display:none">ব্যক্তিগত ও জনতাত্ত্বিক তথ্য</span></div>
+    <div class="ss en-t">Basic background information about you</div>
+    <div class="ss bn-t" style="display:none;font-family:var(--font-b)">আপনার সম্পর্কে মৌলিক পটভূমি তথ্য</div>
+  </div></div>
+  <div class="tc">
+    <div class="fg">
+      <label>Age (years) <span class="req">*</span><span class="bn" style="display:none">বয়স (বছর)</span></label>
+      <input type="number" id="q_age" min="15" max="65" placeholder="e.g. 28">
+    </div>
+    <div class="fg">
+      <label>Gender <span class="req">*</span><span class="bn" style="display:none">লিঙ্গ</span></label>
+      <select id="q_gender" onchange="toggleWomen()">
+        <option value="">— Select / নির্বাচন করুন —</option>
+        <option value="Female">Female / মহিলা</option>
+        <option value="Male">Male / পুরুষ</option>
+        <option value="Prefer not to say">Prefer not to say / বলতে চাই না</option>
+      </select>
+    </div>
+  </div>
+  <div class="tc">
+    <div class="fg">
+      <label>Marital Status <span class="req">*</span><span class="bn" style="display:none">বৈবাহিক অবস্থা</span></label>
+      <select id="q_marital">
+        <option value="">— Select —</option>
+        <option value="Single">Single / অবিবাহিত</option>
+        <option value="Married">Married / বিবাহিত</option>
+        <option value="Widowed">Widowed / বিধবা/বিপত্নীক</option>
+        <option value="Divorced">Divorced / বিচ্ছিন্ন</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Dependents <span class="hint">(children/family)</span><span class="bn" style="display:none">নির্ভরশীল সদস্য</span></label>
+      <input type="number" id="q_dep" min="0" max="15" placeholder="e.g. 2">
+    </div>
+  </div>
+  <div class="fg">
+    <label>Highest Education Level <span class="req">*</span><span class="bn" style="display:none">সর্বোচ্চ শিক্ষাগত যোগ্যতা</span></label>
+    <select id="q_edu">
+      <option value="">— Select —</option>
+      <option value="No formal education">No formal education / কোনো আনুষ্ঠানিক শিক্ষা নেই</option>
+      <option value="Primary">Primary (Class 1–5) / প্রাথমিক</option>
+      <option value="Secondary">Secondary (Class 6–10) / মাধ্যমিক</option>
+      <option value="SSC">SSC / Equivalent / এসএসসি বা সমমান</option>
+      <option value="HSC">HSC / Equivalent / এইচএসসি বা সমমান</option>
+      <option value="Graduate">Graduate or above / স্নাতক বা তার উপরে</option>
+    </select>
+  </div>
+  <div class="fg">
+    <label>Home District <span class="req">*</span><span class="bn" style="display:none">নিজ জেলা</span></label>
+    <select id="q_dist">
+      <option value="">— Select —</option>
+      <option>Dhaka</option><option>Gazipur</option><option>Narayanganj</option>
+      <option>Chattogram</option><option>Narsingdi</option><option>Manikganj</option>
+      <option>Cumilla</option><option>Barishal</option><option>Sylhet</option>
+      <option>Rajshahi</option><option>Khulna</option><option>Mymensingh</option>
+      <option>Faridpur</option><option>Tangail</option><option>Kishoreganj</option>
+      <option>Brahmanbaria</option><option>Noakhali</option><option>Feni</option>
+      <option>Other / অন্যান্য</option>
+    </select>
+  </div>
+  <div class="nav"><button class="btn btn-o" onclick="next(1)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button><button class="btn btn-p" onclick="next(3)"><span class="en-t">Next</span><span class="bn-t" style="display:none">পরবর্তী</span> →</button></div>
+</div>
+
+<!-- ===== S3: EMPLOYMENT ===== -->
+<div class="sc" id="s3">
+  <div class="sh"><div class="sn">3</div><div>
+    <div class="st">Employment Details <span class="bn" style="display:none">চাকরির বিবরণ</span></div>
+    <div class="ss en-t">About your current job and work history</div>
+    <div class="ss bn-t" style="display:none;font-family:var(--font-b)">আপনার বর্তমান চাকরি ও কাজের ইতিহাস</div>
+  </div></div>
+  <div class="tc">
+    <div class="fg"><label>Factory Location <span class="req">*</span><span class="bn" style="display:none">কারখানার এলাকা</span></label>
+      <select id="q_farea"><option value="">— Select —</option>
+        <option value="Ashulia">Ashulia / আশুলিয়া</option>
+        <option value="Gazipur">Gazipur / গাজীপুর</option>
+        <option value="Narayanganj">Narayanganj / নারায়ণগঞ্জ</option>
+        <option value="Tejgaon">Tejgaon / Dhaka / তেজগাঁও</option>
+        <option value="Chattogram EPZ">Chattogram EPZ / চট্টগ্রাম ইপিজেড</option>
+        <option value="Comilla EPZ">Comilla EPZ / কুমিল্লা ইপিজেড</option>
+        <option value="Tongi">Tongi / টঙ্গী</option>
+        <option value="Other">Other / অন্যান্য</option>
+      </select>
+    </div>
+    <div class="fg"><label>Factory Type <span class="req">*</span><span class="bn" style="display:none">কারখানার ধরন</span></label>
+      <select id="q_ftype"><option value="">— Select —</option>
+        <option value="Woven">Woven / ওভেন</option>
+        <option value="Knit">Knit / নিট</option>
+        <option value="Sweater">Sweater / সোয়েটার</option>
+        <option value="Dyeing Finishing">Dyeing & Finishing / ডায়িং ও ফিনিশিং</option>
+        <option value="Washing">Washing / ওয়াশিং</option>
+        <option value="Mixed">Mixed / মিশ্র</option>
+      </select>
+    </div>
+  </div>
+  <div class="fg"><label>Department / Section <span class="req">*</span><span class="bn" style="display:none">বিভাগ / সেকশন</span></label>
+    <select id="q_dept"><option value="">— Select —</option>
+      <option value="Sewing">Sewing / সেলাই</option>
+      <option value="Cutting">Cutting / কাটিং</option>
+      <option value="Quality Finishing">Quality / Finishing / কোয়ালিটি ও ফিনিশিং</option>
+      <option value="Ironing Packing">Ironing & Packing / ইস্ত্রি ও প্যাকিং</option>
+      <option value="Washing Dyeing">Washing / Dyeing / ওয়াশিং ও ডায়িং</option>
+      <option value="Printing Embroidery">Printing / Embroidery / প্রিন্টিং ও এমব্রয়ডারি</option>
+      <option value="Store">Store / স্টোর</option>
+      <option value="Administration">Administration / প্রশাসন</option>
+      <option value="Other">Other / অন্যান্য</option>
+    </select>
+  </div>
+  <div class="tc">
+    <div class="fg"><label>Years in RMG <span class="req">*</span><span class="bn" style="display:none">পোশাক শিল্পে অভিজ্ঞতা</span></label>
+      <select id="q_exp"><option value="">— Select —</option>
+        <option value="Less than 1 year">Less than 1 year / ১ বছরের কম</option>
+        <option value="1–3 years">1–3 years / ১–৩ বছর</option>
+        <option value="3–5 years">3–5 years / ৩–৫ বছর</option>
+        <option value="5–10 years">5–10 years / ৫–১০ বছর</option>
+        <option value="More than 10 years">More than 10 years / ১০ বছরের বেশি</option>
+      </select>
+    </div>
+    <div class="fg"><label>Daily Working Hours <span class="req">*</span><span class="bn" style="display:none">দৈনিক কর্মঘণ্টা</span></label>
+      <select id="q_hrs"><option value="">— Select —</option>
+        <option value="Less than 8">Less than 8 hrs / ৮ ঘণ্টার কম</option>
+        <option value="8 hours">8 hours (standard) / ৮ ঘণ্টা (স্বাভাবিক)</option>
+        <option value="9–10 hours">9–10 hours / ৯–১০ ঘণ্টা</option>
+        <option value="11–12 hours">11–12 hours / ১১–১২ ঘণ্টা</option>
+        <option value="More than 12">More than 12 hrs / ১২ ঘণ্টার বেশি</option>
+      </select>
+    </div>
+  </div>
+  <div class="tc">
+    <div class="fg"><label>Shift Type <span class="req">*</span><span class="bn" style="display:none">শিফটের ধরন</span></label>
+      <select id="q_shift"><option value="">— Select —</option>
+        <option value="Day shift">Day shift / দিনের শিফট</option>
+        <option value="Night shift">Night shift / রাতের শিফট</option>
+        <option value="Rotating">Rotating shifts / পালাবদল শিফট</option>
+      </select>
+    </div>
+    <div class="fg"><label>Monthly Salary (BDT)<span class="bn" style="display:none"> মাসিক বেতন (টাকা)</span></label>
+      <select id="q_sal"><option value="">— Select —</option>
+        <option value="Below 8000">Below ৳8,000 / ৮,০০০ টাকার নিচে</option>
+        <option value="8000–10000">৳8,000–10,000 / ৮–১০ হাজার</option>
+        <option value="10001–15000">৳10,001–15,000 / ১০–১৫ হাজার</option>
+        <option value="15001–20000">৳15,001–20,000 / ১৫–২০ হাজার</option>
+        <option value="Above 20000">Above ৳20,000 / ২০ হাজারের বেশি</option>
+        <option value="Prefer not to say">Prefer not to say / বলতে চাই না</option>
+      </select>
+    </div>
+  </div>
+  <div class="fg"><label>Factory Certifications <span class="hint">(select all that apply)</span><span class="bn" style="display:none"> কারখানার সনদপত্র (সব প্রযোজ্যটি নির্বাচন করুন)</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="checkbox" id="c1" name="cert" value="ACCORD/RSC"><label for="c1">ACCORD / RSC</label></div>
+      <div class="ro"><input type="checkbox" id="c2" name="cert" value="LEED"><label for="c2">LEED Green Building</label></div>
+      <div class="ro"><input type="checkbox" id="c3" name="cert" value="ISO 45001"><label for="c3">ISO 45001 (OH&S)</label></div>
+      <div class="ro"><input type="checkbox" id="c4" name="cert" value="None"><label for="c4">None / <span style="font-family:var(--font-b)">নেই</span></label></div>
+    </div>
+  </div>
+  <div class="nav"><button class="btn btn-o" onclick="next(2)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button><button class="btn btn-p" onclick="next(4)"><span class="en-t">Next</span><span class="bn-t" style="display:none">পরবর্তী</span> →</button></div>
+</div>
+
+<!-- ===== S4: WORKING CONDITIONS ===== -->
+<div class="sc" id="s4">
+  <div class="sh"><div class="sn">4</div><div>
+    <div class="st">Working Environment & Conditions <span class="bn" style="display:none">কর্মক্ষেত্রের পরিবেশ ও অবস্থা</span></div>
+    <div class="ss en-t">Rate the physical conditions at your workplace</div>
+    <div class="ss bn-t" style="display:none;font-family:var(--font-b)">আপনার কর্মক্ষেত্রের শারীরিক পরিবেশ মূল্যায়ন করুন</div>
+  </div></div>
+  <div class="ib"><span class="en-t">Select the option that best describes your usual workplace environment.</span><span class="bn bn-t" style="display:none">প্রতিটি বিষয়ের জন্য যে বিকল্পটি আপনার কর্মক্ষেত্রকে সবচেয়ে ভালোভাবে বর্ণনা করে সেটি নির্বাচন করুন।</span></div>
+
+  <div class="fg"><label>Temperature <span class="req">*</span><span class="bn" style="display:none">তাপমাত্রা</span></label>
+    <div class="rg">
+      <div class="ro"><input type="radio" name="q_temp" id="t1" value="Very hot"><label for="t1">Very hot<span class="bn">খুব গরম</span></label></div>
+      <div class="ro"><input type="radio" name="q_temp" id="t2" value="Hot"><label for="t2">Hot<span class="bn">গরম</span></label></div>
+      <div class="ro"><input type="radio" name="q_temp" id="t3" value="Comfortable"><label for="t3">Comfortable<span class="bn">আরামদায়ক</span></label></div>
+      <div class="ro"><input type="radio" name="q_temp" id="t4" value="Cold"><label for="t4">Cold<span class="bn">ঠান্ডা</span></label></div>
+    </div>
+  </div>
+  <div class="fg"><label>Noise Level <span class="req">*</span><span class="bn" style="display:none">শব্দের মাত্রা</span></label>
+    <div class="rg">
+      <div class="ro"><input type="radio" name="q_noise" id="n1" value="Very loud"><label for="n1">Very loud<span class="bn">খুব জোরালো</span></label></div>
+      <div class="ro"><input type="radio" name="q_noise" id="n2" value="Loud"><label for="n2">Loud<span class="bn">জোরালো</span></label></div>
+      <div class="ro"><input type="radio" name="q_noise" id="n3" value="Moderate"><label for="n3">Moderate<span class="bn">মাঝারি</span></label></div>
+      <div class="ro"><input type="radio" name="q_noise" id="n4" value="Quiet"><label for="n4">Quiet<span class="bn">শান্ত</span></label></div>
+    </div>
+  </div>
+  <div class="fg"><label>Dust / Lint Exposure <span class="req">*</span><span class="bn" style="display:none">ধুলো / আঁশ সংস্পর্শ</span></label>
+    <div class="rg">
+      <div class="ro"><input type="radio" name="q_dust" id="d1" value="Heavy"><label for="d1">Heavy<span class="bn">প্রচুর</span></label></div>
+      <div class="ro"><input type="radio" name="q_dust" id="d2" value="Moderate"><label for="d2">Moderate<span class="bn">মাঝারি</span></label></div>
+      <div class="ro"><input type="radio" name="q_dust" id="d3" value="Light"><label for="d3">Light<span class="bn">সামান্য</span></label></div>
+      <div class="ro"><input type="radio" name="q_dust" id="d4" value="None"><label for="d4">None<span class="bn">নেই</span></label></div>
+    </div>
+  </div>
+  <div class="fg"><label>Chemical / Fume Exposure <span class="req">*</span><span class="bn" style="display:none">রাসায়নিক / ধোঁয়া সংস্পর্শ</span></label>
+    <div class="rg">
+      <div class="ro"><input type="radio" name="q_chem" id="ch1" value="Daily"><label for="ch1">Daily<span class="bn">প্রতিদিন</span></label></div>
+      <div class="ro"><input type="radio" name="q_chem" id="ch2" value="Weekly"><label for="ch2">Weekly<span class="bn">সাপ্তাহিক</span></label></div>
+      <div class="ro"><input type="radio" name="q_chem" id="ch3" value="Rarely"><label for="ch3">Rarely<span class="bn">মাঝেমধ্যে</span></label></div>
+      <div class="ro"><input type="radio" name="q_chem" id="ch4" value="Never"><label for="ch4">Never<span class="bn">কখনো না</span></label></div>
+    </div>
+  </div>
+  <div class="fg"><label>Ventilation <span class="req">*</span><span class="bn" style="display:none">বায়ু চলাচল</span></label>
+    <div class="rg">
+      <div class="ro"><input type="radio" name="q_vent" id="v1" value="Very poor"><label for="v1">Very poor<span class="bn">খুব খারাপ</span></label></div>
+      <div class="ro"><input type="radio" name="q_vent" id="v2" value="Poor"><label for="v2">Poor<span class="bn">খারাপ</span></label></div>
+      <div class="ro"><input type="radio" name="q_vent" id="v3" value="Adequate"><label for="v3">Adequate<span class="bn">মোটামুটি ভালো</span></label></div>
+      <div class="ro"><input type="radio" name="q_vent" id="v4" value="Good"><label for="v4">Good<span class="bn">ভালো</span></label></div>
+    </div>
+  </div>
+  <div class="tc">
+    <div class="fg"><label>Clean Drinking Water <span class="req">*</span><span class="bn" style="display:none">বিশুদ্ধ পানি</span></label>
+      <div class="rg c1">
+        <div class="ro"><input type="radio" name="q_water" id="w1" value="Always available"><label for="w1">Always available<span class="bn">সবসময় পাওয়া যায়</span></label></div>
+        <div class="ro"><input type="radio" name="q_water" id="w2" value="Sometimes"><label for="w2">Sometimes<span class="bn">মাঝেমধ্যে পাওয়া যায়</span></label></div>
+        <div class="ro"><input type="radio" name="q_water" id="w3" value="Not available"><label for="w3">Not available<span class="bn">পাওয়া যায় না</span></label></div>
+      </div>
+    </div>
+    <div class="fg"><label>Toilet Facilities <span class="req">*</span><span class="bn" style="display:none">শৌচাগার সুবিধা</span></label>
+      <div class="rg c1">
+        <div class="ro"><input type="radio" name="q_toilet" id="tl1" value="Adequate and clean"><label for="tl1">Adequate & clean<span class="bn">পর্যাপ্ত ও পরিষ্কার</span></label></div>
+        <div class="ro"><input type="radio" name="q_toilet" id="tl2" value="Inadequate"><label for="tl2">Inadequate<span class="bn">অপর্যাপ্ত</span></label></div>
+        <div class="ro"><input type="radio" name="q_toilet" id="tl3" value="Poor"><label for="tl3">Poor / Unhygienic<span class="bn">নোংরা</span></label></div>
+      </div>
+    </div>
+  </div>
+  <div class="fg"><label>PPE Usage <span class="req">*</span><span class="bn" style="display:none">ব্যক্তিগত সুরক্ষা সরঞ্জাম (পিপিই)</span></label>
+    <div class="rg">
+      <div class="ro"><input type="radio" name="q_ppe" id="p1" value="Always"><label for="p1">Always<span class="bn">সবসময়</span></label></div>
+      <div class="ro"><input type="radio" name="q_ppe" id="p2" value="Sometimes"><label for="p2">Sometimes<span class="bn">মাঝেমধ্যে</span></label></div>
+      <div class="ro"><input type="radio" name="q_ppe" id="p3" value="Rarely"><label for="p3">Rarely<span class="bn">কদাচিৎ</span></label></div>
+      <div class="ro"><input type="radio" name="q_ppe" id="p4" value="Never"><label for="p4">Never / Not provided<span class="bn">কখনো না / দেওয়া হয় না</span></label></div>
+    </div>
+  </div>
+  <div class="nav"><button class="btn btn-o" onclick="next(3)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button><button class="btn btn-p" onclick="next(5)"><span class="en-t">Next</span><span class="bn-t" style="display:none">পরবর্তী</span> →</button></div>
+</div>
+
+<!-- ===== S5: PHYSICAL & SKIN ILLNESS ===== -->
+<div class="sc" id="s5">
+  <div class="sh"><div class="sn">5</div><div>
+    <div class="st">Physical Illness & Skin / Chemical Conditions <span class="bn" style="display:none">শারীরিক অসুস্থতা ও ত্বক সমস্যা</span></div>
+    <div class="ss en-t">Select all health issues you have experienced at work (last 3 months)</div>
+    <div class="ss bn-t" style="display:none;font-family:var(--font-b)">কাজের সময় অনুভব করেছেন এমন সকল সমস্যা নির্বাচন করুন (গত ৩ মাস)</div>
+  </div></div>
+  <div class="ib"><span class="en-t">Select <strong>all conditions that apply</strong>. Multiple selections allowed in each category.</span><span class="bn bn-t" style="display:none">প্রতিটি বিভাগে একাধিক নির্বাচন করা যাবে।</span></div>
+
+  <div class="cb phys">
+    <div class="cat-h"><div class="cat-ico phys">A</div><div><div class="cat-title">Physical Illness <span class="sel-ct" id="cnt-phys"></span><span class="bn" style="display:none">শারীরিক অসুস্থতা</span></div><div class="cat-sub en-t">Musculoskeletal, respiratory, systemic conditions</div><div class="cat-sub bn-t" style="display:none;font-family:var(--font-b)">হাড়-পেশি, শ্বাস, সাধারণ শারীরিক সমস্যা</div></div></div>
+    <div class="pill-grid">
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph01" value="Back pain"><label for="ph01">Back pain<span class="bn">পিঠে ব্যথা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph02" value="Neck pain"><label for="ph02">Neck pain<span class="bn">ঘাড়ে ব্যথা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph03" value="Shoulder pain"><label for="ph03">Shoulder pain<span class="bn">কাঁধে ব্যথা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph04" value="Wrist pain"><label for="ph04">Wrist pain<span class="bn">কব্জিতে ব্যথা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph05" value="Finger pain"><label for="ph05">Finger pain<span class="bn">আঙুলে ব্যথা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph06" value="Knee pain"><label for="ph06">Knee pain<span class="bn">হাঁটুতে ব্যথা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph07" value="Leg pain"><label for="ph07">Leg pain<span class="bn">পায়ে ব্যথা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph08" value="Joint pain"><label for="ph08">Joint pain<span class="bn">গাঁটে ব্যথা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph09" value="Muscle strain"><label for="ph09">Muscle strain<span class="bn">পেশি টান</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph10" value="Sciatica"><label for="ph10">Sciatica<span class="bn">সায়াটিকা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph11" value="Headache"><label for="ph11">Headache<span class="bn">মাথাব্যথা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph12" value="Migraine"><label for="ph12">Migraine<span class="bn">মাইগ্রেন</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph13" value="Eye strain"><label for="ph13">Eye strain<span class="bn">চোখের চাপ</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph14" value="Blurred vision"><label for="ph14">Blurred vision<span class="bn">ঝাপসা দৃষ্টি</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph15" value="Dry eyes"><label for="ph15">Dry eyes<span class="bn">শুষ্ক চোখ</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph16" value="Hearing loss"><label for="ph16">Hearing loss<span class="bn">শ্রবণ সমস্যা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph17" value="Tinnitus"><label for="ph17">Tinnitus<span class="bn">কানে গুনগুন</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph18" value="Chronic fatigue"><label for="ph18">Chronic fatigue<span class="bn">দীর্ঘস্থায়ী ক্লান্তি</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph19" value="Fever"><label for="ph19">Fever<span class="bn">জ্বর</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph20" value="Common cold"><label for="ph20">Common cold<span class="bn">সর্দি</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph21" value="Cough"><label for="ph21">Cough<span class="bn">কাশি</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph22" value="Asthma"><label for="ph22">Asthma<span class="bn">হাঁপানি</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph23" value="Breathing difficulty"><label for="ph23">Breathing difficulty<span class="bn">শ্বাসকষ্ট</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph24" value="Chest tightness"><label for="ph24">Chest tightness<span class="bn">বুকে চাপ</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph25" value="Sinus allergy"><label for="ph25">Sinus allergy<span class="bn">সাইনাস অ্যালার্জি</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph26" value="Gastric pain"><label for="ph26">Gastric pain<span class="bn">গ্যাস্ট্রিক ব্যথা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph27" value="Acidity"><label for="ph27">Acidity<span class="bn">অম্লতা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph28" value="Abdominal pain"><label for="ph28">Abdominal pain<span class="bn">পেটব্যথা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph29" value="Diarrhea"><label for="ph29">Diarrhea<span class="bn">ডায়রিয়া</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph30" value="Constipation"><label for="ph30">Constipation<span class="bn">কোষ্ঠকাঠিন্য</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph31" value="Malnutrition"><label for="ph31">Malnutrition<span class="bn">অপুষ্টি</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph32" value="Anemia"><label for="ph32">Anemia<span class="bn">রক্তশূন্যতা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph33" value="Dehydration"><label for="ph33">Dehydration<span class="bn">পানিশূন্যতা</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph34" value="Hypertension"><label for="ph34">Hypertension<span class="bn">উচ্চ রক্তচাপ</span></label></div>
+      <div class="pill phys"><input type="checkbox" name="phys" id="ph35" value="Heart disease risk"><label for="ph35">Heart disease risk<span class="bn">হৃদরোগের ঝুঁকি</span></label></div>
+    </div>
+  </div>
+
+  <div class="cb skin">
+    <div class="cat-h"><div class="cat-ico skin">B</div><div><div class="cat-title">Skin & Chemical Illnesses <span class="sel-ct" id="cnt-skin"></span><span class="bn" style="display:none">ত্বক ও রাসায়নিক সমস্যা</span></div><div class="cat-sub en-t">Conditions from dyes, chemicals, fabric dust</div><div class="cat-sub bn-t" style="display:none;font-family:var(--font-b)">রং, রাসায়নিক ও কাপড়ের ধুলো থেকে সমস্যা</div></div></div>
+    <div class="pill-grid">
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk01" value="Dermatitis"><label for="sk01">Dermatitis<span class="bn">চর্মরোগ</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk02" value="Skin rash"><label for="sk02">Skin rash<span class="bn">ত্বকে ফুসকুড়ি</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk03" value="Itching"><label for="sk03">Itching<span class="bn">চুলকানি</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk04" value="Chemical burns"><label for="sk04">Chemical burns<span class="bn">রাসায়নিক পোড়া</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk05" value="Dye allergy"><label for="sk05">Dye allergy<span class="bn">রং অ্যালার্জি</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk06" value="Fabric dust irritation"><label for="sk06">Fabric dust irritation<span class="bn">কাপড়ের ধুলো জ্বালা</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk07" value="Fungal infection"><label for="sk07">Fungal infection<span class="bn">ছত্রাক সংক্রমণ</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk08" value="Hand dryness"><label for="sk08">Hand dryness<span class="bn">হাতের শুষ্কতা</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk09" value="Nail damage"><label for="sk09">Nail damage<span class="bn">নখের ক্ষতি</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk10" value="Heat rash"><label for="sk10">Heat rash<span class="bn">ঘামাচি</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk11" value="Contact allergy"><label for="sk11">Contact allergy<span class="bn">সংস্পর্শ অ্যালার্জি</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk12" value="Sweating dermatitis"><label for="sk12">Sweating dermatitis<span class="bn">ঘামের চর্মরোগ</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk13" value="Infection from cuts"><label for="sk13">Infection from cuts<span class="bn">কাটা ঘায়ের সংক্রমণ</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk14" value="Toxic inhalation"><label for="sk14">Toxic inhalation<span class="bn">বিষাক্ত গ্যাস শ্বাস</span></label></div>
+      <div class="pill skin"><input type="checkbox" name="skin" id="sk15" value="Chemical sensitivity"><label for="sk15">Chemical sensitivity<span class="bn">রাসায়নিক সংবেদনশীলতা</span></label></div>
+    </div>
+  </div>
+  <div class="nav"><button class="btn btn-o" onclick="next(4)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button><button class="btn btn-p" onclick="next(6)"><span class="en-t">Next</span><span class="bn-t" style="display:none">পরবর্তী</span> →</button></div>
+</div>
+
+<!-- ===== S6: MENTAL / INJURIES / WOMEN ===== -->
+<div class="sc" id="s6">
+  <div class="sh"><div class="sn">6</div><div>
+    <div class="st">Mental Health, Injuries & Women's Health <span class="bn" style="display:none">মানসিক স্বাস্থ্য, আঘাত ও মহিলা স্বাস্থ্য</span></div>
+    <div class="ss en-t">Select all that apply to your experience</div>
+    <div class="ss bn-t" style="display:none;font-family:var(--font-b)">আপনার অভিজ্ঞতার সাথে মিলে এমন সব নির্বাচন করুন</div>
+  </div></div>
+
+  <div class="cb mental">
+    <div class="cat-h"><div class="cat-ico mental">C</div><div><div class="cat-title">Mental Health Issues <span class="sel-ct" id="cnt-mental"></span><span class="bn" style="display:none">মানসিক স্বাস্থ্য সমস্যা</span></div></div></div>
+    <div class="pill-grid">
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh01" value="Work stress"><label for="mh01">Work stress<span class="bn">কাজের চাপ</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh02" value="Anxiety"><label for="mh02">Anxiety<span class="bn">উদ্বেগ</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh03" value="Depression"><label for="mh03">Depression<span class="bn">বিষণ্নতা</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh04" value="Burnout"><label for="mh04">Burnout<span class="bn">পুড়ে যাওয়া অনুভব</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh05" value="Insomnia"><label for="mh05">Insomnia<span class="bn">ঘুমের সমস্যা</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh06" value="Fear of job loss"><label for="mh06">Fear of job loss<span class="bn">চাকরি হারানোর ভয়</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh07" value="Emotional exhaustion"><label for="mh07">Emotional exhaustion<span class="bn">আবেগীয় ক্লান্তি</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh08" value="Trauma after accident"><label for="mh08">Trauma after accident<span class="bn">দুর্ঘটনা পরবর্তী ট্রমা</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh09" value="Panic attacks"><label for="mh09">Panic attacks<span class="bn">হঠাৎ আতঙ্ক</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh10" value="Low morale"><label for="mh10">Low morale<span class="bn">মনোবল কম</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh11" value="Anger issues"><label for="mh11">Anger issues<span class="bn">রাগের সমস্যা</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh12" value="Lack of concentration"><label for="mh12">Lack of concentration<span class="bn">মনোযোগের অভাব</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh13" value="Social withdrawal"><label for="mh13">Social withdrawal<span class="bn">সামাজিক বিচ্ছিন্নতা</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh14" value="Irritability"><label for="mh14">Irritability<span class="bn">বিরক্তি</span></label></div>
+      <div class="pill mental"><input type="checkbox" name="mental" id="mh15" value="Chronic stress syndrome"><label for="mh15">Chronic stress syndrome<span class="bn">দীর্ঘস্থায়ী চাপের সিন্ড্রোম</span></label></div>
+    </div>
+  </div>
+
+  <div class="cb injury">
+    <div class="cat-h"><div class="cat-ico injury">D</div><div><div class="cat-title">Workplace Injuries <span class="sel-ct" id="cnt-injury"></span><span class="bn" style="display:none">কর্মক্ষেত্রে আঘাত</span></div></div></div>
+    <div class="pill-grid">
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj01" value="Needle puncture"><label for="inj01">Needle puncture<span class="bn">সুঁই ফোটানো</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj02" value="Finger cut"><label for="inj02">Finger cut<span class="bn">আঙুল কাটা</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj03" value="Hand cut"><label for="inj03">Hand cut<span class="bn">হাত কাটা</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj04" value="Hand crush"><label for="inj04">Hand crush<span class="bn">হাত চাপা পড়া</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj05" value="Machine entanglement"><label for="inj05">Machine entanglement<span class="bn">মেশিনে জড়ানো</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj06" value="Fracture"><label for="inj06">Fracture<span class="bn">হাড় ভাঙা</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj07" value="Sprain"><label for="inj07">Sprain<span class="bn">মচকানো</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj08" value="Slip injury"><label for="inj08">Slip injury<span class="bn">পিছলে পড়া</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj09" value="Trip injury"><label for="inj09">Trip injury<span class="bn">হোঁচট খাওয়া</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj10" value="Fall injury"><label for="inj10">Fall injury<span class="bn">পড়ে যাওয়া</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj11" value="Stair injury"><label for="inj11">Stair injury<span class="bn">সিঁড়িতে আঘাত</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj12" value="Electric shock"><label for="inj12">Electric shock<span class="bn">বৈদ্যুতিক ধাক্কা</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj13" value="Fire burn"><label for="inj13">Fire burn<span class="bn">আগুনে পোড়া</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj14" value="Smoke inhalation"><label for="inj14">Smoke inhalation<span class="bn">ধোঁয়া শ্বাস নেওয়া</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj15" value="Falling object"><label for="inj15">Falling object<span class="bn">কিছু পড়ে আঘাত</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj16" value="Heavy lifting injury"><label for="inj16">Heavy lifting<span class="bn">ভার তোলার আঘাত</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj17" value="Shoulder dislocation"><label for="inj17">Shoulder dislocation<span class="bn">কাঁধ সরে যাওয়া</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj18" value="Eye injury"><label for="inj18">Eye injury<span class="bn">চোখে আঘাত</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj19" value="Foot injury"><label for="inj19">Foot injury<span class="bn">পায়ে আঘাত</span></label></div>
+      <div class="pill injury"><input type="checkbox" name="injury" id="inj20" value="Stampede injury"><label for="inj20">Stampede injury<span class="bn">পদদলিত আঘাত</span></label></div>
+    </div>
+  </div>
+
+  <div class="cb women" id="women-block" style="display:none">
+    <div class="cat-h"><div class="cat-ico women">E</div><div><div class="cat-title">Women Worker Health Issues <span class="sel-ct" id="cnt-women"></span><span class="bn" style="display:none">মহিলা শ্রমিক স্বাস্থ্য সমস্যা</span></div></div></div>
+    <div class="ib warn" style="margin-bottom:.75rem"><span class="en-t">This section is for female workers only. Responses are fully confidential.</span><span class="bn bn-t" style="display:none">এই অংশটি শুধুমাত্র মহিলা শ্রমিকদের জন্য। উত্তর সম্পূর্ণ গোপনীয়।</span></div>
+    <div class="pill-grid">
+      <div class="pill women"><input type="checkbox" name="women" id="wh01" value="Menstrual discomfort"><label for="wh01">Menstrual discomfort<span class="bn">মাসিকের অস্বস্তি</span></label></div>
+      <div class="pill women"><input type="checkbox" name="women" id="wh02" value="Urinary infection risk"><label for="wh02">Urinary infection risk<span class="bn">প্রস্রাবের সংক্রমণ</span></label></div>
+      <div class="pill women"><input type="checkbox" name="women" id="wh03" value="Pregnancy stress"><label for="wh03">Pregnancy stress<span class="bn">গর্ভাবস্থার চাপ</span></label></div>
+      <div class="pill women"><input type="checkbox" name="women" id="wh04" value="Miscarriage risk"><label for="wh04">Miscarriage risk<span class="bn">গর্ভপাতের ঝুঁকি</span></label></div>
+      <div class="pill women"><input type="checkbox" name="women" id="wh05" value="Nutritional deficiency"><label for="wh05">Nutritional deficiency<span class="bn">পুষ্টির অভাব</span></label></div>
+      <div class="pill women"><input type="checkbox" name="women" id="wh06" value="Iron deficiency anemia"><label for="wh06">Iron deficiency anemia<span class="bn">আয়রন স্বল্পতা</span></label></div>
+      <div class="pill women"><input type="checkbox" name="women" id="wh07" value="Reproductive health stress"><label for="wh07">Reproductive health stress<span class="bn">প্রজনন স্বাস্থ্য চাপ</span></label></div>
+      <div class="pill women"><input type="checkbox" name="women" id="wh08" value="Lack of maternal support"><label for="wh08">Lack of maternal support<span class="bn">মাতৃত্বকালীন সহায়তার অভাব</span></label></div>
+    </div>
+  </div>
+  <div class="nav"><button class="btn btn-o" onclick="next(5)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button><button class="btn btn-p" onclick="next(7)"><span class="en-t">Next</span><span class="bn-t" style="display:none">পরবর্তী</span> →</button></div>
+</div>
+
+<!-- ===== S7: HEALTHCARE ===== -->
+<div class="sc" id="s7">
+  <div class="sh"><div class="sn">7</div><div>
+    <div class="st">Healthcare Access & Absenteeism <span class="bn" style="display:none">স্বাস্থ্যসেবা ও অনুপস্থিতি</span></div>
+    <div class="ss en-t">Your experience with medical care and sick leave</div>
+    <div class="ss bn-t" style="display:none;font-family:var(--font-b)">চিকিৎসাসেবা ও অসুস্থতাজনিত ছুটির অভিজ্ঞতা</div>
+  </div></div>
+  <div class="tc">
+    <div class="fg"><label>Sick days (last 3 months) <span class="req">*</span><span class="bn" style="display:none">অসুস্থতাজনিত ছুটি (গত ৩ মাস)</span></label>
+      <select id="q_sick"><option value="">— Select —</option>
+        <option value="0 days">0 days / ০ দিন</option>
+        <option value="1–3 days">1–3 days / ১–৩ দিন</option>
+        <option value="4–7 days">4–7 days / ৪–৭ দিন</option>
+        <option value="8–14 days">8–14 days / ৮–১৪ দিন</option>
+        <option value="More than 14 days">More than 14 days / ১৪ দিনের বেশি</option>
+      </select>
+    </div>
+    <div class="fg"><label>Doctor visits (last 3 months) <span class="req">*</span><span class="bn" style="display:none">ডাক্তার দেখানো (গত ৩ মাস)</span></label>
+      <select id="q_visits"><option value="">— Select —</option>
+        <option value="None">None / কোনোটি না</option>
+        <option value="1 time">1 time / ১ বার</option>
+        <option value="2–3 times">2–3 times / ২–৩ বার</option>
+        <option value="4–5 times">4–5 times / ৪–৫ বার</option>
+        <option value="More than 5">More than 5 / ৫ বারের বেশি</option>
+      </select>
+    </div>
+  </div>
+  <div class="fg"><label>Does your factory have a medical clinic? <span class="req">*</span><span class="bn" style="display:none">কারখানায় চিকিৎসা কেন্দ্র আছে?</span></label>
+    <div class="rg">
+      <div class="ro"><input type="radio" name="q_clinic" id="fc1" value="Yes, I use it"><label for="fc1">Yes, I use it<span class="bn">হ্যাঁ, আমি ব্যবহার করি</span></label></div>
+      <div class="ro"><input type="radio" name="q_clinic" id="fc2" value="Yes, don't use"><label for="fc2">Yes, I don't use it<span class="bn">হ্যাঁ, কিন্তু ব্যবহার করি না</span></label></div>
+      <div class="ro"><input type="radio" name="q_clinic" id="fc3" value="No clinic"><label for="fc3">No clinic<span class="bn">নেই</span></label></div>
+      <div class="ro"><input type="radio" name="q_clinic" id="fc4" value="Don't know"><label for="fc4">Don't know<span class="bn">জানি না</span></label></div>
+    </div>
+  </div>
+  <div class="fg"><label>Where do you seek care when sick? <span class="req">*</span><span class="bn" style="display:none">অসুস্থ হলে কোথায় যান?</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="radio" name="q_care" id="cs1" value="Factory clinic"><label for="cs1">Factory clinic<span class="bn">কারখানার ক্লিনিক</span></label></div>
+      <div class="ro"><input type="radio" name="q_care" id="cs2" value="Govt hospital"><label for="cs2">Govt hospital<span class="bn">সরকারি হাসপাতাল</span></label></div>
+      <div class="ro"><input type="radio" name="q_care" id="cs3" value="Private doctor"><label for="cs3">Private doctor<span class="bn">বেসরকারি ডাক্তার</span></label></div>
+      <div class="ro"><input type="radio" name="q_care" id="cs4" value="Pharmacy only"><label for="cs4">Pharmacy only<span class="bn">শুধু ফার্মেসি</span></label></div>
+      <div class="ro"><input type="radio" name="q_care" id="cs5" value="NGO clinic"><label for="cs5">NGO / BRAC clinic<span class="bn">এনজিও ক্লিনিক</span></label></div>
+      <div class="ro"><input type="radio" name="q_care" id="cs6" value="I don't seek care"><label for="cs6">I don't seek care<span class="bn">চিকিৎসা নিই না</span></label></div>
+    </div>
+  </div>
+  <div class="fg"><label>Who pays for your treatment? <span class="hint">(select all that apply)</span><span class="bn" style="display:none"> চিকিৎসার খরচ কে বহন করে? (সব প্রযোজ্যটি নির্বাচন করুন)</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="checkbox" name="q_pays" id="wp1" value="I pay myself"><label for="wp1">I pay myself<span class="bn">আমি নিজে</span></label></div>
+      <div class="ro"><input type="checkbox" name="q_pays" id="wp2" value="Factory covers"><label for="wp2">Factory covers<span class="bn">কারখানা বহন করে</span></label></div>
+      <div class="ro"><input type="checkbox" name="q_pays" id="wp3" value="Family helps"><label for="wp3">Family helps<span class="bn">পরিবার সাহায্য করে</span></label></div>
+      <div class="ro"><input type="checkbox" name="q_pays" id="wp4" value="NGO / charity"><label for="wp4">NGO / charity<span class="bn">এনজিও / দাতব্য</span></label></div>
+      <div class="ro"><input type="checkbox" name="q_pays" id="wp5" value="Loan / borrowed money"><label for="wp5">Loan / borrowed money<span class="bn">ঋণ / ধার করে</span></label></div>
+      <div class="ro"><input type="checkbox" name="q_pays" id="wp6" value="Employer insurance"><label for="wp6">Employer insurance<span class="bn">নিয়োগকর্তার বীমা</span></label></div>
+      <div class="ro"><input type="checkbox" name="q_pays" id="wp7" value="Govt health scheme"><label for="wp7">Govt health scheme<span class="bn">সরকারি স্বাস্থ্য প্রকল্প</span></label></div>
+      <div class="ro"><input type="checkbox" name="q_pays" id="wp8" value="Community / neighbors"><label for="wp8">Community / neighbors<span class="bn">সমাজ / প্রতিবেশী</span></label></div>
+    </div>
+  </div>
+  <div class="fg"><label>Health rating compared to 1 year ago? <span class="req">*</span><span class="bn" style="display:none">এক বছর আগের তুলনায় স্বাস্থ্য কেমন?</span></label>
+    <div class="lk">
+      <div class="lk-lbl">
+        <span><span class="en-t">Much worse</span><span class="bn-t" style="display:none;font-family:var(--font-b)">অনেক খারাপ</span></span>
+        <span><span class="en-t">Much better</span><span class="bn-t" style="display:none;font-family:var(--font-b)">অনেক ভালো</span></span>
+      </div>
+      <div class="lk-opts">
+        <label><input type="radio" name="q_health" value="1">1<span class="sub en-t">Worse</span><span class="sub bn-t" style="display:none;font-family:var(--font-b)">খারাপ</span></label>
+        <label><input type="radio" name="q_health" value="2">2</label>
+        <label><input type="radio" name="q_health" value="3">3</label>
+        <label><input type="radio" name="q_health" value="4">4<span class="sub en-t">Same</span><span class="sub bn-t" style="display:none;font-family:var(--font-b)">একই</span></label>
+        <label><input type="radio" name="q_health" value="5">5</label>
+        <label><input type="radio" name="q_health" value="6">6</label>
+        <label><input type="radio" name="q_health" value="7">7<span class="sub en-t">Better</span><span class="sub bn-t" style="display:none;font-family:var(--font-b)">ভালো</span></label>
+      </div>
+    </div>
+  </div>
+  <div class="fg"><label>Chronic / diagnosed conditions <span class="hint">(optional)</span><span class="bn" style="display:none"> দীর্ঘস্থায়ী রোগ (ঐচ্ছিক)</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="checkbox" id="cr1" name="chronic" value="Asthma"><label for="cr1">Asthma / <span style="font-family:var(--font-b)">হাঁপানি</span></label></div>
+      <div class="ro"><input type="checkbox" id="cr2" name="chronic" value="TB"><label for="cr2">TB / <span style="font-family:var(--font-b)">যক্ষ্মা</span></label></div>
+      <div class="ro"><input type="checkbox" id="cr3" name="chronic" value="Diabetes"><label for="cr3">Diabetes / <span style="font-family:var(--font-b)">ডায়াবেটিস</span></label></div>
+      <div class="ro"><input type="checkbox" id="cr4" name="chronic" value="Hypertension"><label for="cr4">Hypertension / <span style="font-family:var(--font-b)">উচ্চ রক্তচাপ</span></label></div>
+      <div class="ro"><input type="checkbox" id="cr5" name="chronic" value="Anemia"><label for="cr5">Anemia / <span style="font-family:var(--font-b)">রক্তশূন্যতা</span></label></div>
+      <div class="ro"><input type="checkbox" id="cr6" name="chronic" value="None"><label for="cr6">None / <span style="font-family:var(--font-b)">নেই</span></label></div>
+    </div>
+  </div>
+  <div class="fg"><label>Additional comments <span class="hint">(optional)</span><span class="bn" style="display:none"> অতিরিক্ত মন্তব্য (ঐচ্ছিক)</span></label>
+    <textarea id="q_comments" placeholder="Any other health issues… / অন্য কোনো স্বাস্থ্য সমস্যা…"></textarea>
+  </div>
+  <div class="nav"><button class="btn btn-o" onclick="next(6)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button><button class="btn btn-p" onclick="next(8)"><span class="en-t">Next</span><span class="bn-t" style="display:none">পরবর্তী</span> →</button></div>
+</div>
+
+<!-- ===== S8: PRODUCTIVITY SELF-ASSESSMENT ===== -->
+<div class="sc" id="s8">
+  <div class="sh">
+    <div class="sn" style="background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff">8</div>
+    <div>
+      <div class="st">Productivity Self-Assessment <span class="bn" style="display:none">কর্মক্ষমতা স্ব-মূল্যায়ন</span></div>
+      <div class="ss en-t">Your personal assessment of work performance and health impact</div>
+      <div class="ss bn-t" style="display:none;font-family:var(--font-b)">কাজের কর্মক্ষমতা ও স্বাস্থ্যের প্রভাব সম্পর্কে আপনার নিজের মতামত</div>
+    </div>
+  </div>
+  <div class="ib"><span class="en-t">These questions help understand how illness affects your daily work output. Answer honestly — there are no right or wrong answers.</span><span class="bn bn-t" style="display:none">এই প্রশ্নগুলো বুঝতে সাহায্য করে যে অসুস্থতা আপনার দৈনিক কাজকে কতটা প্রভাবিত করে। সৎভাবে উত্তর দিন — কোনো সঠিক বা ভুল উত্তর নেই।</span></div>
+
+  <!-- Q1: Target Meeting -->
+  <div class="prod-card q1">
+    <div class="prod-q">
+      <span class="qnum">Q1</span>
+      <span class="en-t">How would you rate your ability to meet your daily production target?</span>
+      <span class="bn-t" style="display:none;font-family:var(--font-b)">আপনার দৈনিক উৎপাদন লক্ষ্যমাত্রা পূরণ করার সক্ষমতাকে আপনি কীভাবে মূল্যায়ন করবেন?</span>
+    </div>
+    <div class="prod-opts">
+      <div class="po"><input type="radio" name="prod_target" id="pt1" value="Easily meet or exceed target"><label for="pt1">Easily meet or exceed target<span class="bn">সহজেই লক্ষ্যমাত্রা পূরণ বা অতিক্রম করি</span></label></div>
+      <div class="po"><input type="radio" name="prod_target" id="pt2" value="Usually meet with some effort"><label for="pt2">Usually meet target with some effort<span class="bn">সাধারণত চেষ্টা করে পূরণ করি</span></label></div>
+      <div class="po"><input type="radio" name="prod_target" id="pt3" value="Struggle to meet most days"><label for="pt3">Struggle to meet target most days<span class="bn">বেশিরভাগ দিন পূরণ করতে কষ্ট হয়</span></label></div>
+      <div class="po"><input type="radio" name="prod_target" id="pt4" value="Rarely or never meet target"><label for="pt4">Rarely or never meet the target<span class="bn">খুব কমই বা কখনো পূরণ হয় না</span></label></div>
+    </div>
+  </div>
+
+  <!-- Q2: Pain Impact -->
+  <div class="prod-card q2">
+    <div class="prod-q">
+      <span class="qnum">Q2</span>
+      <span class="en-t">How much does physical discomfort or pain affect your work performance?</span>
+      <span class="bn-t" style="display:none;font-family:var(--font-b)">শারীরিক অস্বস্তি বা ব্যথা আপনার কাজের কর্মক্ষমতাকে কতটা প্রভাবিত করে?</span>
+    </div>
+    <div class="prod-opts">
+      <div class="po"><input type="radio" name="prod_pain" id="pp1" value="Not at all"><label for="pp1">Not at all — pain does not affect my work<span class="bn">মোটেও না — ব্যথা কাজকে প্রভাবিত করে না</span></label></div>
+      <div class="po"><input type="radio" name="prod_pain" id="pp2" value="A little — push through"><label for="pp2">A little — I push through the discomfort<span class="bn">সামান্য — কষ্ট করে কাজ চালিয়ে যাই</span></label></div>
+      <div class="po"><input type="radio" name="prod_pain" id="pp3" value="Moderately — slows me down"><label for="pp3">Moderately — it slows my work down<span class="bn">মাঝারিভাবে — কাজ ধীর হয়ে যায়</span></label></div>
+      <div class="po"><input type="radio" name="prod_pain" id="pp4" value="A lot — very hard to work"><label for="pp4">A lot — it is very hard to concentrate and work<span class="bn">অনেক বেশি — মনোযোগ দিয়ে কাজ করা খুব কঠিন</span></label></div>
+      <div class="po"><input type="radio" name="prod_pain" id="pp5" value="Cannot work properly"><label for="pp5">I cannot work properly because of pain or illness<span class="bn">ব্যথা বা অসুস্থতার কারণে সঠিকভাবে কাজ করতে পারি না</span></label></div>
+    </div>
+  </div>
+
+  <!-- Q3: End of Workday -->
+  <div class="prod-card q3">
+    <div class="prod-q">
+      <span class="qnum">Q3</span>
+      <span class="en-t">How do you feel at the end of a typical workday?</span>
+      <span class="bn-t" style="display:none;font-family:var(--font-b)">একটি সাধারণ কর্মদিনের শেষে আপনি কেমন অনুভব করেন?</span>
+    </div>
+    <div class="prod-opts">
+      <div class="po"><input type="radio" name="prod_eod" id="pe1" value="Fresh and energetic"><label for="pe1">Fresh and energetic — ready to do more<span class="bn">সতেজ ও শক্তিশালী — আরও কাজ করতে পারব</span></label></div>
+      <div class="po"><input type="radio" name="prod_eod" id="pe2" value="Slightly tired but okay"><label for="pe2">Slightly tired but okay — normal tiredness<span class="bn">সামান্য ক্লান্ত কিন্তু ঠিক আছি — স্বাভাবিক ক্লান্তি</span></label></div>
+      <div class="po"><input type="radio" name="prod_eod" id="pe3" value="Very tired and exhausted"><label for="pe3">Very tired and exhausted — hard to do anything after work<span class="bn">খুব ক্লান্ত ও অবসাদগ্রস্ত — কাজের পরে কিছু করতে পারি না</span></label></div>
+      <div class="po"><input type="radio" name="prod_eod" id="pe4" value="In pain or physically unwell"><label for="pe4">In pain or physically unwell at the end of the day<span class="bn">দিনের শেষে ব্যথা বা শারীরিক অসুস্থতা অনুভব করি</span></label></div>
+      <div class="po"><input type="radio" name="prod_eod" id="pe5" value="Emotionally drained"><label for="pe5">Emotionally drained and mentally exhausted<span class="bn">মানসিকভাবে ক্লান্ত ও বিপর্যস্ত</span></label></div>
+    </div>
+  </div>
+
+  <!-- Q4: Resign consideration -->
+  <div class="prod-card q4">
+    <div class="prod-q">
+      <span class="qnum">Q4</span>
+      <span class="en-t">Do you feel that you need to resign / leave your job due to illness or health problems?</span>
+      <span class="bn-t" style="display:none;font-family:var(--font-b)">আপনি কি মনে করেন যে অসুস্থতা বা স্বাস্থ্য সমস্যার কারণে আপনাকে চাকরি ছেড়ে দিতে হবে?</span>
+    </div>
+    <div class="prod-opts">
+      <div class="po"><input type="radio" name="prod_resign" id="pr1" value="Yes, seriously considering"><label for="pr1">Yes — I am seriously considering leaving due to health<span class="bn">হ্যাঁ — আমি স্বাস্থ্যের কারণে চাকরি ছাড়ার গুরুত্বসহকারে ভাবছি</span></label></div>
+      <div class="po"><input type="radio" name="prod_resign" id="pr2" value="Sometimes think about it"><label for="pr2">Sometimes — I think about it but haven't decided<span class="bn">মাঝে মাঝে — ভাবি কিন্তু সিদ্ধান্ত নেইনি</span></label></div>
+      <div class="po"><input type="radio" name="prod_resign" id="pr3" value="Rarely think about it"><label for="pr3">Rarely — I only think about it on very bad days<span class="bn">খুব কমই — শুধু খুব খারাপ দিনে মনে হয়</span></label></div>
+      <div class="po"><input type="radio" name="prod_resign" id="pr4" value="No, never think about it"><label for="pr4">No — I never think about resigning due to illness<span class="bn">না — অসুস্থতার কারণে চাকরি ছাড়ার কথা কখনো ভাবি না</span></label></div>
+    </div>
+  </div>
+
+  <div class="err-b" id="submit-err"><span class="en-t">Submission failed. Please check your internet connection and try again.</span><span class="bn-t" style="display:none;font-family:var(--font-b)">জমা দিতে ব্যর্থ হয়েছে। অনুগ্রহ করে ইন্টারনেট সংযোগ পরীক্ষা করুন।</span></div>
+  <div class="nav">
+    <button class="btn btn-o" onclick="next(7)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button>
+    <button class="btn btn-s" onclick="submitSurvey()">
+      <span class="en-t">Submit Survey ✓</span>
+      <span class="bn-t" style="display:none;font-family:var(--font-b)">জরিপ জমা দিন ✓</span>
+    </button>
+  </div>
+</div>
+
+<!-- ===== SUCCESS ===== -->
+<div class="sc" id="s-ok" style="display:none">
+  <div class="suc">
+    <div class="sico">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+        <circle cx="18" cy="18" r="17" stroke="#1d9e75" stroke-width="2"/>
+        <path d="M10 18l5.5 5.5L26 12" stroke="#1d9e75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2>
+      <span class="en-t">Thank You!</span>
+      <span class="bn-t" style="display:none;font-family:var(--font-b)">ধন্যবাদ!</span>
+    </h2>
+    <p>
+      <span class="en-t">Your response has been recorded. Your participation helps improve health and safety for RMG workers in Bangladesh.</span>
+      <span class="bn-t" style="display:none;font-family:var(--font-b)">আপনার উত্তর নথিভুক্ত হয়েছে। আপনার অংশগ্রহণ বাংলাদেশের পোশাক শ্রমিকদের স্বাস্থ্য ও নিরাপত্তা উন্নয়নে সাহায্য করবে।</span>
+    </p>
+    <p style="margin-top:.75rem;font-size:12px;color:var(--g4)">Response ID: <code id="rid"></code></p>
+    <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--g2)">
+      <p style="font-size:13px;color:var(--g4);margin-bottom:1rem">
+        <span class="en-t">Another worker wants to fill in the survey?</span>
+        <span class="bn-t" style="display:none;font-family:var(--font-b)">অন্য কোনো শ্রমিক জরিপ পূরণ করতে চান?</span>
+      </p>
+      <button class="btn btn-p" onclick="resetForm()" style="font-size:15px;padding:12px 32px">
+        <span class="en-t">+ Start Next Respondent</span>
+        <span class="bn-t" style="display:none;font-family:var(--font-b)">+ পরবর্তী উত্তরদাতা শুরু করুন</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <span class="en-t">Conducted under academic ethics approval. All responses are anonymous and confidential.</span>
+  <span class="bn-t" style="display:none;font-family:var(--font-b)">একাডেমিক নৈতিক অনুমোদনের অধীনে পরিচালিত। সকল উত্তর বেনামী ও গোপনীয়।</span><br>
+  <span class="en-t">© 2025 RMG Health Research Project — Bangladesh</span>
+  <span class="bn-t" style="display:none;font-family:var(--font-b)">© ২০২৫ আরএমজি স্বাস্থ্য গবেষণা প্রকল্প — বাংলাদেশ</span>
+</footer>
+
+<!-- HIDDEN IFRAME + FORM -->
+<iframe name="hidden_frame" style="display:none"></iframe>
+<form id="hform" method="POST" target="hidden_frame" style="display:none">
+  <input type="hidden" name="timestamp">
+  <input type="hidden" name="response_id">
+  <input type="hidden" name="survey_lang">
+  <input type="hidden" name="age">
+  <input type="hidden" name="gender">
+  <input type="hidden" name="marital_status">
+  <input type="hidden" name="dependents">
+  <input type="hidden" name="education">
+  <input type="hidden" name="district">
+  <input type="hidden" name="factory_area">
+  <input type="hidden" name="factory_type">
+  <input type="hidden" name="department">
+  <input type="hidden" name="experience">
+  <input type="hidden" name="working_hours">
+  <input type="hidden" name="shift">
+  <input type="hidden" name="salary_range">
+  <input type="hidden" name="certifications">
+  <input type="hidden" name="temperature">
+  <input type="hidden" name="noise">
+  <input type="hidden" name="dust_exposure">
+  <input type="hidden" name="chemical_exposure">
+  <input type="hidden" name="ventilation">
+  <input type="hidden" name="drinking_water">
+  <input type="hidden" name="toilet_facilities">
+  <input type="hidden" name="ppe_use">
+  <input type="hidden" name="phys_illness">
+  <input type="hidden" name="skin_illness">
+  <input type="hidden" name="mental_health">
+  <input type="hidden" name="workplace_injuries">
+  <input type="hidden" name="women_health">
+  <input type="hidden" name="sick_days_3mo">
+  <input type="hidden" name="doctor_visits_3mo">
+  <input type="hidden" name="factory_clinic">
+  <input type="hidden" name="care_source">
+  <input type="hidden" name="medical_cost_payer">
+  <input type="hidden" name="self_health_rating">
+  <input type="hidden" name="chronic_conditions">
+  <input type="hidden" name="comments">
+  <input type="hidden" name="prod_target_rating">
+  <input type="hidden" name="prod_pain_impact">
+  <input type="hidden" name="prod_end_of_day">
+  <input type="hidden" name="prod_resign_feeling">
+</form>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_gKBWxUxj3eid3G9W896_V9H_gQBtU89oLzU--mn4xjwcuG0P9-aapua1hFOAe5Xdbw/exec";
+
+const LABELS_EN = ["","Section 1 of 8 — Informed Consent","Section 2 of 8 — Demographics","Section 3 of 8 — Employment","Section 4 of 8 — Working Conditions","Section 5 of 8 — Physical & Skin Illness","Section 6 of 8 — Mental Health, Injuries & Women","Section 7 of 8 — Healthcare & Absenteeism","Section 8 of 8 — Productivity Self-Assessment"];
+const LABELS_BN = ["","অনুচ্ছেদ ১/৮ — সম্মতি","অনুচ্ছেদ ২/৮ — জনতাত্ত্বিক","অনুচ্ছেদ ৩/৮ — চাকরি","অনুচ্ছেদ ৪/৮ — কর্মপরিবেশ","অনুচ্ছেদ ৫/৮ — শারীরিক অসুস্থতা","অনুচ্ছেদ ৬/৮ — মানসিক ও আঘাত","অনুচ্ছেদ ৭/৮ — স্বাস্থ্যসেবা","অনুচ্ছেদ ৮/৮ — কর্মক্ষমতা মূল্যায়ন"];
+
+let cur = 1;
+let lang = "en";
+
+function setLang(l) {
+  lang = l;
+  document.body.className = l === "bn" ? "bn" : "";
+  document.getElementById("btn-en").className = "lang-btn" + (l==="en"?" active":"");
+  document.getElementById("btn-bn").className = "lang-btn bn-btn" + (l==="bn"?" active":"");
+  // Toggle all en-t / bn-t elements
+  document.querySelectorAll(".en-t").forEach(function(el){
+    el.style.display = l==="en" ? "" : "none";
+  });
+  document.querySelectorAll(".bn-t").forEach(function(el){
+    el.style.display = l==="bn" ? "" : "none";
+  });
+  // Toggle .bn spans inside labels (bilingual sub-labels)
+  document.querySelectorAll(".bn").forEach(function(el){
+    el.style.display = l==="bn" ? "block" : "none";
+  });
+  // Update progress label
+  const labels = l==="bn" ? LABELS_BN : LABELS_EN;
+  document.getElementById("sec-label").textContent = labels[cur] || "";
+}
+
+function next(n) {
+  if (n === 2 && !document.getElementById("consent-chk").checked) {
+    document.getElementById("consent-err").style.display = "block"; return;
+  }
+  document.getElementById("consent-err").style.display = "none";
+  document.getElementById("s" + cur).classList.remove("active");
+  cur = n;
+  document.getElementById("s" + cur).classList.add("active");
+  const pct = Math.round((n / 8) * 100);
+  document.getElementById("prog-fill").style.width = pct + "%";
+  const labels = lang==="bn" ? LABELS_BN : LABELS_EN;
+  document.getElementById("sec-label").textContent = labels[n] || "";
+  document.getElementById("sec-pct").textContent = pct + "%";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function toggleWomen() {
+  var g = document.getElementById("q_gender").value;
+  document.getElementById("women-block").style.display = (g==="Female") ? "block" : "none";
+}
+
+function radio(name) {
+  var el = document.querySelector("input[name=\""+name+"\"]:checked");
+  return el ? el.value : "";
+}
+function checks(name) {
+  return Array.from(document.querySelectorAll("input[name=\""+name+"\"]:checked"))
+    .map(function(e){return e.value;}).join(", ");
+}
+function sf(name, val) {
+  var el = document.querySelector("#hform input[name=\""+name+"\"");
+  if (el) el.value = val || "";
+}
+function genId() {
+  return "RMG-" + Date.now().toString(36).toUpperCase() + "-" +
+    Math.random().toString(36).substr(2,4).toUpperCase();
+}
+
+// Live counters for pill categories
+["phys","skin","mental","injury","women"].forEach(function(cat) {
+  document.querySelectorAll("input[name=\""+cat+"\"]").forEach(function(cb) {
+    cb.addEventListener("change", function() {
+      var n = document.querySelectorAll("input[name=\""+cat+"\"]:checked").length;
+      var el = document.getElementById("cnt-"+cat);
+      if (el) el.textContent = n > 0 ? "("+n+" selected)" : "";
+    });
+  });
+});
+
+function submitSurvey() {
+  document.getElementById("submit-err").style.display = "none";
+  document.getElementById("overlay").style.display = "flex";
+  var rid = genId();
+  sf("timestamp",           new Date().toISOString());
+  sf("response_id",         rid);
+  sf("survey_lang",         lang);
+  sf("age",                 document.getElementById("q_age").value);
+  sf("gender",              document.getElementById("q_gender").value);
+  sf("marital_status",      document.getElementById("q_marital").value);
+  sf("dependents",          document.getElementById("q_dep").value);
+  sf("education",           document.getElementById("q_edu").value);
+  sf("district",            document.getElementById("q_dist").value);
+  sf("factory_area",        document.getElementById("q_farea").value);
+  sf("factory_type",        document.getElementById("q_ftype").value);
+  sf("department",          document.getElementById("q_dept").value);
+  sf("experience",          document.getElementById("q_exp").value);
+  sf("working_hours",       document.getElementById("q_hrs").value);
+  sf("shift",               document.getElementById("q_shift").value);
+  sf("salary_range",        document.getElementById("q_sal").value);
+  sf("certifications",      checks("cert"));
+  sf("temperature",         radio("q_temp"));
+  sf("noise",               radio("q_noise"));
+  sf("dust_exposure",       radio("q_dust"));
+  sf("chemical_exposure",   radio("q_chem"));
+  sf("ventilation",         radio("q_vent"));
+  sf("drinking_water",      radio("q_water"));
+  sf("toilet_facilities",   radio("q_toilet"));
+  sf("ppe_use",             radio("q_ppe"));
+  sf("phys_illness",        checks("phys"));
+  sf("skin_illness",        checks("skin"));
+  sf("mental_health",       checks("mental"));
+  sf("workplace_injuries",  checks("injury"));
+  sf("women_health",        document.getElementById("q_gender").value==="Female" ? checks("women") : "N/A");
+  sf("sick_days_3mo",       document.getElementById("q_sick").value);
+  sf("doctor_visits_3mo",   document.getElementById("q_visits").value);
+  sf("factory_clinic",      radio("q_clinic"));
+  sf("care_source",         radio("q_care"));
+  sf("medical_cost_payer",  checks("q_pays"));
+  sf("self_health_rating",  radio("q_health"));
+  sf("chronic_conditions",  checks("chronic"));
+  sf("comments",            document.getElementById("q_comments").value);
+  sf("prod_target_rating",  radio("prod_target"));
+  sf("prod_pain_impact",    radio("prod_pain"));
+  sf("prod_end_of_day",     radio("prod_eod"));
+  sf("prod_resign_feeling", radio("prod_resign"));
+  document.getElementById("hform").action = SCRIPT_URL;
+  document.getElementById("hform").submit();
+  setTimeout(function() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("s8").classList.remove("active");
+    document.getElementById("s-ok").style.display = "block";
+    document.getElementById("rid").textContent = rid;
+    document.getElementById("prog-fill").style.width = "100%";
+    document.getElementById("sec-label").textContent = lang==="bn" ? "জরিপ সম্পন্ন" : "Survey Complete";
+    document.getElementById("sec-pct").textContent = "100%";
+    window.scrollTo({top:0,behavior:"smooth"});
+  }, 2000);
+}
+
+function resetForm() {
+  document.querySelectorAll("input[type=text],input[type=number],textarea")
+    .forEach(function(el){el.value="";});
+  document.querySelectorAll("select").forEach(function(el){el.selectedIndex=0;});
+  document.querySelectorAll("input[type=radio],input[type=checkbox]")
+    .forEach(function(el){el.checked=false;});
+  ["cnt-phys","cnt-skin","cnt-mental","cnt-injury","cnt-women"]
+    .forEach(function(id){var el=document.getElementById(id);if(el)el.textContent="";});
+  document.getElementById("women-block").style.display = "none";
+  document.getElementById("s-ok").style.display = "none";
+  cur = 1;
+  document.getElementById("s1").classList.add("active");
+  var pct = Math.round(1/8*100)+"%";
+  document.getElementById("prog-fill").style.width = pct;
+  var labels = lang==="bn" ? LABELS_BN : LABELS_EN;
+  document.getElementById("sec-label").textContent = labels[1];
+  document.getElementById("sec-pct").textContent = pct;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// Init language
+setLang("en");
+</script>
+</body>
+</html>
