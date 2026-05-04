@@ -1,1 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RMG HR Professional Survey | এইচআর পেশাদার জরিপ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Source+Sans+3:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --hr:#7c3aed;--hr-l:#f5f3ff;--hr-d:#5b21b6;
+  --teal:#0e6b52;--tl:#e1f5ee;--tm:#1d9e75;--td:#085041;
+  --coral:#993c1d;--cl:#faece7;
+  --blue:#185fa5;--bl:#e6f1fb;
+  --amber:#ba7517;--al:#faeeda;
+  --green:#3b6d11;--gl:#eaf3de;
+  --rose:#be185d;--rose-l:#fdf2f8;
+  --navy:#1d3557;--navy-l:#e8edf5;
+  --red:#a32d2d;--rl:#fcebeb;
+  --g1:#f5f4f0;--g2:#e8e6e0;--g4:#9a9890;--g7:#3a3835;
+  --font-d:'Playfair Display',Georgia,serif;
+  --font-e:'Source Sans 3',sans-serif;
+  --font-b:'Noto Sans Bengali','Source Sans 3',sans-serif;
+  --r:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-e);background:var(--g1);color:var(--g7);line-height:1.65;font-size:15px}
+body.bn{font-family:var(--font-b)}
 
+/* LANG BAR */
+.lang-bar{background:#fff;border-bottom:1px solid var(--g2);padding:.5rem 1.5rem;display:flex;justify-content:flex-end;align-items:center;gap:8px;position:sticky;top:0;z-index:200;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.lang-label{font-size:12px;color:var(--g4);font-weight:500}
+.lang-toggle{display:flex;background:var(--g1);border-radius:20px;padding:3px;border:1px solid var(--g2)}
+.lang-btn{padding:4px 14px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--g4);transition:all .2s;font-family:var(--font-e)}
+.lang-btn.active{background:var(--hr);color:#fff}
+.lang-btn.bn-btn{font-family:var(--font-b)}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--hr-d) 0%,#312e81 100%);color:#fff;padding:2.2rem 1.5rem 2rem;text-align:center;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-50px;right:-70px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.05)}
+.hdr::after{content:'';position:absolute;bottom:-60px;left:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.03)}
+.badge{display:inline-block;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:.8rem}
+.hdr h1{font-family:var(--font-d);font-size:clamp(1.3rem,3.5vw,1.9rem);line-height:1.25;margin-bottom:.5rem;position:relative}
+.hdr h1 .bn-h{font-family:var(--font-b);font-size:clamp(1.1rem,3vw,1.5rem);display:none}
+.hdr p{font-size:13px;opacity:.75;max-width:560px;margin:.3rem auto 0;position:relative}
+.hdr-pills{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:1rem;position:relative}
+.hdr-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px}
+.hdr-pill.bn-p{font-family:var(--font-b);display:none}
+
+/* PROGRESS */
+.prog-wrap{background:#fff;border-bottom:1px solid var(--g2);padding:.85rem 1.5rem;position:sticky;top:40px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.prog-info{display:flex;justify-content:space-between;font-size:12px;color:var(--g4);margin-bottom:5px;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+.prog-bg{background:var(--g2);height:5px;border-radius:10px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--hr),var(--hr-d));border-radius:10px;transition:width .4s ease;width:12.5%}
+.step-dots{display:flex;justify-content:center;gap:6px;padding:.5rem 0 .2rem}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--g2);transition:all .3s}
+.dot.active{background:var(--hr);transform:scale(1.3)}
+.dot.done{background:var(--tm)}
+
+.wrap{max-width:740px;margin:0 auto;padding:2rem 1.25rem 4rem}
+
+/* CARDS */
+.sc{background:#fff;border-radius:var(--r);box-shadow:0 2px 16px rgba(0,0,0,.07);padding:2rem 2rem 1.5rem;margin-bottom:2rem;display:none;animation:si .3s ease}
+.sc.active{display:block}
+@keyframes si{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:1.75rem;padding-bottom:1.25rem;border-bottom:1px solid var(--g2)}
+.sn{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;color:#fff}
+.sn.c-hr{background:var(--hr)}.sn.c-coral{background:var(--coral)}.sn.c-blue{background:var(--blue)}
+.sn.c-amber{background:var(--amber)}.sn.c-rose{background:var(--rose)}.sn.c-green{background:var(--green)}
+.st{font-family:var(--font-d);font-size:1.15rem;line-height:1.2}
+.st.c-hr{color:var(--hr)}.st.c-coral{color:var(--coral)}.st.c-blue{color:var(--blue)}
+.st.c-amber{color:var(--amber)}.st.c-rose{color:var(--rose)}.st.c-green{color:var(--green)}
+.st .bn{font-family:var(--font-b);font-size:.95rem;display:none;margin-top:2px;opacity:.8}
+.ss{font-size:13px;color:var(--g4);margin-top:2px}
+.ss .bn{font-family:var(--font-b);display:none}
+
+/* FORM */
+.fg{margin-bottom:1.4rem}
+label{display:block;font-size:14px;font-weight:600;color:var(--g7);margin-bottom:6px}
+label .bn{display:none;font-family:var(--font-b);font-size:12.5px;font-weight:400;color:var(--g4);margin-top:1px}
+.req{color:var(--red);margin-left:3px}
+.hint{font-weight:400;color:var(--g4);font-size:12px;margin-left:5px}
+input[type=text],input[type=number],select,textarea{width:100%;padding:9px 12px;border:1.5px solid var(--g2);border-radius:7px;font-size:14px;color:var(--g7);background:#fff;transition:border-color .2s;appearance:none;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--hr);box-shadow:0 0 0 3px rgba(124,58,237,.12)}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%239a9890' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+textarea{resize:vertical;min-height:80px}
+
+/* RADIO / CHECK */
+.rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px}
+.rg.c1{grid-template-columns:1fr}.rg.c2{grid-template-columns:1fr 1fr}.rg.c3{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:500px){.rg.c3,.rg{grid-template-columns:1fr 1fr}}
+.ro{position:relative}
+.ro input{position:absolute;opacity:0;width:0;height:0}
+.ro label{display:flex;flex-direction:column;padding:9px 12px;border:1.5px solid var(--g2);border-radius:7px;cursor:pointer;font-size:13px;font-weight:500;transition:all .15s;margin:0;background:#fff}
+.ro label .en-lbl{display:block}
+.ro label .bn-lbl{display:none;font-family:var(--font-b);font-size:12px;color:var(--g4);font-weight:400;margin-top:2px}
+.ro label:hover,.ro input:checked+label{border-color:var(--hr);background:var(--hr-l);color:var(--hr-d)}
+.ro input:checked+label .bn-lbl{color:var(--hr)}
+
+/* PILL */
+.pill-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.pill{position:relative}
+.pill input{position:absolute;opacity:0;width:0;height:0}
+.pill label{display:inline-flex;flex-direction:column;padding:5px 12px;border:1.5px solid var(--g2);border-radius:20px;cursor:pointer;font-size:12.5px;font-weight:500;background:#fff;transition:all .15s;margin:0;line-height:1.3}
+.pill label .en-lbl{white-space:nowrap}
+.pill label .bn-lbl{display:none;font-family:var(--font-b);font-size:11px;color:var(--g4);margin-top:1px}
+.pill label:hover{border-color:var(--hr);background:var(--hr-l)}
+.pill input:checked+label{background:var(--hr);border-color:var(--hr);color:#fff}
+.pill input:checked+label .bn-lbl{color:rgba(255,255,255,.8)}
+
+/* METRIC */
+.metric-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:1.4rem}
+@media(max-width:520px){.metric-row{grid-template-columns:1fr 1fr}}
+.metric-card{background:var(--g1);border-radius:8px;padding:.9rem;border:1px solid var(--g2)}
+.metric-label{font-size:12px;font-weight:600;color:var(--g4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.metric-label .bn{display:none;font-family:var(--font-b);text-transform:none;letter-spacing:0;font-size:11px;color:var(--g4);font-weight:400}
+.metric-card input,.metric-card select{background:#fff}
+
+/* RATING */
+.rating-wrap{background:var(--g1);border-radius:8px;padding:1rem;margin-top:4px}
+.rating-lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--g4);margin-bottom:8px;font-weight:500}
+.rating-opts{display:flex;justify-content:space-between;gap:4px}
+.rating-opts label{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;font-weight:500;color:var(--g4);cursor:pointer;margin:0;flex:1;text-align:center}
+.rating-opts label .sub{font-size:10px}
+.rating-opts label .sub.bn{font-family:var(--font-b);display:none}
+.rating-opts input[type=radio]{accent-color:var(--hr);width:18px;height:18px}
+
+/* INFO BOX */
+.ib{border-radius:0 7px 7px 0;padding:11px 14px;font-size:13px;margin-bottom:1.25rem;line-height:1.5;border-left:3px solid}
+.ib.purple{background:var(--hr-l);border-color:var(--hr);color:#4c1d95}
+.ib.coral{background:var(--cl);border-color:var(--coral);color:#5a1a08}
+.ib.blue{background:var(--bl);border-color:var(--blue);color:#0d3d6e}
+.ib.amber{background:var(--al);border-color:var(--amber);color:#7a4a00}
+.ib .bn{display:none;font-family:var(--font-b);font-size:12px;margin-top:3px}
+
+/* DATA BLOCK */
+.data-block{border-radius:var(--r);padding:1.2rem;margin-bottom:1.25rem;border:1px solid}
+.data-block.policy{background:#f0fdf4;border-color:#bbf7d0}
+.data-block.impact{background:#fff7ed;border-color:#fed7aa}
+.data-block.wellbeing{background:#fdf4ff;border-color:#e9d5ff}
+.db-head{display:flex;align-items:center;gap:10px;margin-bottom:.9rem}
+.db-ico{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;color:#fff}
+.policy .db-ico{background:var(--green)}.impact .db-ico{background:var(--amber)}.wellbeing .db-ico{background:var(--hr)}
+.db-title{font-weight:600;font-size:14px}
+.db-title .bn{font-family:var(--font-b);font-size:12px;color:var(--g4);display:none;font-weight:400;margin-top:1px}
+
+/* SEC DIVIDER */
+.sec-div{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--g4);margin:1.25rem 0 .75rem;padding-bottom:.35rem;border-bottom:1px solid var(--g2)}
+.sec-div .bn{display:none;font-family:var(--font-b);text-transform:none;letter-spacing:0;margin-left:6px;font-weight:400}
+
+.tc{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:500px){.tc{grid-template-columns:1fr}}
+
+/* CONSENT */
+.cbox{border:1.5px solid var(--g2);border-radius:var(--r);padding:1.5rem;margin-bottom:1.25rem;background:#fafaf8;font-size:13px;line-height:1.75;color:#555;max-height:230px;overflow-y:auto}
+.cbox h3{font-size:14px;color:var(--g7);margin-bottom:8px}
+.ca{display:flex;align-items:flex-start;gap:10px;cursor:pointer}
+.ca input{margin-top:4px;accent-color:var(--hr);width:16px;height:16px;flex-shrink:0}
+.ca span .bn{display:none;font-family:var(--font-b);font-size:12px;color:var(--g4);font-weight:400;margin-top:2px}
+
+/* NAV */
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--g2)}
+.btn{padding:10px 24px;border-radius:7px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;border:none}
+.btn-o{background:#fff;border:1.5px solid var(--g2);color:var(--g7)}
+.btn-o:hover{border-color:var(--hr);color:var(--hr)}
+.btn-p{background:var(--hr);color:#fff}
+.btn-p:hover{background:var(--hr-d);transform:translateY(-1px)}
+.btn-s{background:var(--td);color:#fff;padding:12px 32px;font-size:15px}
+.btn-s:hover{background:var(--teal)}
+
+/* SUCCESS */
+.suc{text-align:center;padding:3rem 2rem}
+.sico{width:72px;height:72px;background:var(--tl);border-radius:50%;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center}
+.suc h2{font-family:var(--font-d);color:var(--td);font-size:1.6rem;margin-bottom:.4rem}
+.suc p{color:var(--g4);font-size:14px;max-width:360px;margin:0 auto}
+
+/* OVERLAY */
+.ov{display:none;position:fixed;inset:0;background:rgba(255,255,255,.88);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:14px;font-weight:600;color:var(--hr)}
+.spin{width:36px;height:36px;border:3px solid var(--g2);border-top-color:var(--hr);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.err-b{display:none;background:var(--rl);border:1px solid var(--red);border-radius:7px;padding:12px 14px;font-size:13px;color:var(--red);margin-bottom:1rem}
+.ferr{font-size:12px;color:var(--red);margin-top:4px;display:none}
+footer{text-align:center;font-size:12px;color:var(--g4);padding:1.5rem;border-top:1px solid var(--g2)}
+</style>
+</head>
+<body>
+
+<!-- LANGUAGE TOGGLE -->
+<div class="lang-bar">
+  <span class="lang-label">Language / ভাষা:</span>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">English</button>
+    <button class="lang-btn bn-btn" id="btn-bn" onclick="setLang('bn')">বাংলা</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="badge" id="hdr-badge">HR Professional Survey — PhD Research</div>
+  <h1>
+    <span class="en-t">Worker Health, Absenteeism & HR Impact Survey<br><span style="font-size:.8em;font-weight:400;opacity:.85">For HR Professionals Working in the RMG Industry</span></span>
+    <span class="bn-h">শ্রমিকের স্বাস্থ্য, অনুপস্থিতি ও এইচআর প্রভাব জরিপ<br><span style="font-size:.8em;font-weight:400;opacity:.85;font-family:var(--font-b)">আরএমজি শিল্পে কর্মরত এইচআর পেশাদারদের জন্য</span></span>
+  </h1>
+  <p>
+    <span class="en-t">This survey collects HR professionals' insights on workforce health trends, absenteeism data, HR policy effectiveness, and the operational impact of worker illness in the RMG sector.</span>
+    <span class="bn-t" style="display:none;font-family:var(--font-b)">এই জরিপটি আরএমজি খাতে কর্মশক্তির স্বাস্থ্য প্রবণতা, অনুপস্থিতির তথ্য, এইচআর নীতির কার্যকারিতা এবং শ্রমিকের অসুস্থতার প্রভাব সম্পর্কে এইচআর পেশাদারদের অন্তর্দৃষ্টি সংগ্রহ করে।</span>
+  </p>
+  <div class="hdr-pills">
+    <span class="hdr-pill en-t">HR Manager</span>
+    <span class="hdr-pill en-t">HR Officer</span>
+    <span class="hdr-pill en-t">Welfare Officer</span>
+    <span class="hdr-pill en-t">Admin Manager</span>
+    <span class="hdr-pill en-t">Compliance Officer</span>
+    <span class="hdr-pill bn-p">এইচআর ম্যানেজার</span>
+    <span class="hdr-pill bn-p">এইচআর অফিসার</span>
+    <span class="hdr-pill bn-p">কল্যাণ অফিসার</span>
+    <span class="hdr-pill bn-p">কমপ্লায়েন্স অফিসার</span>
+  </div>
+</header>
+
+<!-- PROGRESS -->
+<div class="prog-wrap">
+  <div class="prog-info">
+    <span id="sec-label">Section 1 of 8 — Informed Consent</span>
+    <span id="sec-pct">13%</span>
+  </div>
+  <div class="prog-bg"><div class="prog-fill" id="prog-fill"></div></div>
+  <div class="step-dots">
+    <div class="dot active" id="dot1"></div><div class="dot" id="dot2"></div>
+    <div class="dot" id="dot3"></div><div class="dot" id="dot4"></div>
+    <div class="dot" id="dot5"></div><div class="dot" id="dot6"></div>
+    <div class="dot" id="dot7"></div><div class="dot" id="dot8"></div>
+  </div>
+</div>
+
+<div class="ov" id="overlay">
+  <div class="spin"></div>
+  <span class="en-t">Submitting response…</span>
+  <span class="bn-t" style="display:none;font-family:var(--font-b)">তথ্য জমা দেওয়া হচ্ছে…</span>
+</div>
+
+<main class="wrap">
+
+<!-- S1: CONSENT -->
+<div class="sc active" id="s1">
+  <div class="sh"><div class="sn c-hr">1</div><div>
+    <div class="st c-hr">Informed Consent <span class="bn">অবহিত সম্মতি</span></div>
+    <div class="ss"><span class="en-t">Please read carefully before proceeding</span><span class="bn" style="display:none;font-family:var(--font-b)">এগিয়ে যাওয়ার আগে মনোযোগ দিয়ে পড়ুন</span></div>
+  </div></div>
+  <div class="cbox">
+    <h3><span class="en-t">Research Information Sheet — HR Professional Survey</span><span class="bn" style="display:none;font-family:var(--font-b)">গবেষণা তথ্যপত্র — এইচআর পেশাদার জরিপ</span></h3>
+    <div class="en-t">
+      <p>You are invited to participate in a PhD research study: <strong>"Workplace Illness Trends and Productivity Impact in the Bangladesh RMG Sector — HR Perspective."</strong></p><br>
+      <p><strong>Purpose:</strong> To understand how worker health and illness patterns affect HR operations, absenteeism management, workforce retention, and overall factory productivity — from the perspective of HR professionals working in the RMG industry.</p><br>
+      <p><strong>Who should complete this:</strong> HR Managers, HR Officers, Welfare Officers, Compliance Officers, Admin Managers, and any HR professionals who manage worker health, leave, and wellbeing in RMG factories.</p><br>
+      <p><strong>Confidentiality:</strong> All responses are completely confidential. No names, factory identities, or company-specific data will be published. All data is used solely for academic research.</p><br>
+      <p><strong>Voluntariness:</strong> Participation is entirely voluntary and has no bearing on your employment or professional standing.</p><br>
+      <p><strong>Duration:</strong> Approximately 15–20 minutes.</p><br>
+      <p><strong>Contact:</strong> research@example.com</p>
+    </div>
+    <div class="bn-t" style="display:none;font-family:var(--font-b)">
+      <p>আপনাকে একটি পিএইচডি গবেষণায় অংশ নিতে আমন্ত্রণ জানানো হচ্ছে: <strong>"বাংলাদেশ আরএমজি খাতে কর্মক্ষেত্রের রোগব্যাধির প্রবণতা ও উৎপাদনশীলতার উপর প্রভাব — এইচআর দৃষ্টিকোণ।"</strong></p><br>
+      <p><strong>উদ্দেশ্য:</strong> শ্রমিকের স্বাস্থ্য ও অসুস্থতার প্যাটার্ন এইচআর কার্যক্রম, অনুপস্থিতি ব্যবস্থাপনা, কর্মশক্তি ধরে রাখা এবং কারখানার উৎপাদনশীলতাকে কীভাবে প্রভাবিত করে তা বোঝা।</p><br>
+      <p><strong>কে পূরণ করবেন:</strong> এইচআর ম্যানেজার, এইচআর অফিসার, কল্যাণ অফিসার, কমপ্লায়েন্স অফিসার, অ্যাডমিন ম্যানেজার এবং যেকোনো এইচআর পেশাদার যারা আরএমজি কারখানায় শ্রমিকের স্বাস্থ্য, ছুটি ও কল্যাণ ব্যবস্থাপনা করেন।</p><br>
+      <p><strong>গোপনীয়তা:</strong> সকল উত্তর সম্পূর্ণ গোপনীয়। কোনো নাম বা কারখানার পরিচয় প্রকাশ করা হবে না।</p><br>
+      <p><strong>স্বেচ্ছামূলকতা:</strong> অংশগ্রহণ সম্পূর্ণ স্বেচ্ছামূলক।</p><br>
+      <p><strong>সময়কাল:</strong> আনুমানিক ১৫–২০ মিনিট।</p>
+    </div>
+  </div>
+  <label class="ca"><input type="checkbox" id="consent-chk">
+    <span>
+      <span class="en-t">I have read and understood the information above and voluntarily agree to participate in this research.</span>
+      <span class="bn" style="display:none">আমি উপরের তথ্য পড়েছি ও বুঝেছি এবং স্বেচ্ছায় এই গবেষণায় অংশ নিতে সম্মত।</span>
+    </span>
+  </label>
+  <div class="ferr" id="consent-err"><span class="en-t">You must agree to proceed.</span><span class="bn-t" style="display:none;font-family:var(--font-b)">এগিয়ে যেতে সম্মত হতে হবে।</span></div>
+  <div class="nav" style="justify-content:flex-end">
+    <button class="btn btn-p" onclick="next(2)"><span class="en-t">Begin Survey →</span><span class="bn-t" style="display:none">জরিপ শুরু করুন →</span></button>
+  </div>
+</div>
+
+<!-- S2: HR PROFILE -->
+<div class="sc" id="s2">
+  <div class="sh"><div class="sn c-hr">2</div><div>
+    <div class="st c-hr">HR Professional Profile <span class="bn">এইচআর পেশাদারের পরিচয়</span></div>
+    <div class="ss"><span class="en-t">Your role, experience, and factory information</span><span class="bn" style="display:none;font-family:var(--font-b)">আপনার পদবি, অভিজ্ঞতা ও কারখানার তথ্য</span></div>
+  </div></div>
+  <div class="ib purple"><span class="en-t">Your name is optional. Role and factory context help us analyse responses by HR level and factory type.</span><span class="bn" style="display:none">আপনার নাম ঐচ্ছিক। পদবি ও কারখানার তথ্য ব্যবস্থাপনার স্তর অনুযায়ী বিশ্লেষণে সাহায্য করে।</span></div>
+  <div class="tc">
+    <div class="fg"><label>Name <span class="hint">(optional)</span><span class="bn" style="display:none">নাম (ঐচ্ছিক)</span></label><input type="text" id="q_name" placeholder="Optional / ঐচ্ছিক"></div>
+    <div class="fg"><label>Gender <span class="req">*</span><span class="bn" style="display:none">লিঙ্গ</span></label>
+      <select id="q_gender"><option value="">— Select —</option>
+        <option value="Female">Female / মহিলা</option>
+        <option value="Male">Male / পুরুষ</option>
+        <option value="Prefer not to say">Prefer not to say / বলতে চাই না</option>
+      </select>
+    </div>
+  </div>
+  <div class="fg"><label>HR Role / Designation <span class="req">*</span><span class="bn" style="display:none">এইচআর পদবি</span></label>
+    <select id="q_role"><option value="">— Select your role —</option>
+      <option value="HR Manager">HR Manager / এইচআর ম্যানেজার</option>
+      <option value="Senior HR Officer">Senior HR Officer / সিনিয়র এইচআর অফিসার</option>
+      <option value="HR Officer">HR Officer / এইচআর অফিসার</option>
+      <option value="HR Executive">HR Executive / এইচআর এক্সিকিউটিভ</option>
+      <option value="Welfare Officer">Welfare Officer / কল্যাণ অফিসার</option>
+      <option value="Compliance Manager">Compliance Manager / কমপ্লায়েন্স ম্যানেজার</option>
+      <option value="Compliance Officer">Compliance Officer / কমপ্লায়েন্স অফিসার</option>
+      <option value="Admin Manager">Admin Manager / অ্যাডমিন ম্যানেজার</option>
+      <option value="HR & Admin Head">HR & Admin Head / এইচআর ও অ্যাডমিন প্রধান</option>
+      <option value="Other">Other / অন্যান্য</option>
+    </select>
+  </div>
+  <div class="tc">
+    <div class="fg"><label>Years in HR profession <span class="req">*</span><span class="bn" style="display:none">এইচআর পেশায় অভিজ্ঞতা</span></label>
+      <select id="q_yrs_hr"><option value="">— Select —</option>
+        <option value="Less than 1 year">Less than 1 year / ১ বছরের কম</option>
+        <option value="1–3 years">1–3 years / ১–৩ বছর</option>
+        <option value="3–5 years">3–5 years / ৩–৫ বছর</option>
+        <option value="5–10 years">5–10 years / ৫–১০ বছর</option>
+        <option value="More than 10 years">More than 10 years / ১০ বছরের বেশি</option>
+      </select>
+    </div>
+    <div class="fg"><label>Years in RMG / Garment Industry <span class="req">*</span><span class="bn" style="display:none">আরএমজি শিল্পে বছর</span></label>
+      <select id="q_yrs_rmg"><option value="">— Select —</option>
+        <option value="Less than 1 year">Less than 1 year / ১ বছরের কম</option>
+        <option value="1–3 years">1–3 years / ১–৩ বছর</option>
+        <option value="3–5 years">3–5 years / ৩–৫ বছর</option>
+        <option value="5–10 years">5–10 years / ৫–১০ বছর</option>
+        <option value="More than 10 years">More than 10 years / ১০ বছরের বেশি</option>
+      </select>
+    </div>
+  </div>
+  <div class="tc">
+    <div class="fg"><label>Factory / Area Location <span class="req">*</span><span class="bn" style="display:none">কারখানার এলাকা</span></label>
+      <select id="q_location"><option value="">— Select —</option>
+        <option value="Ashulia">Ashulia / আশুলিয়া</option>
+        <option value="Gazipur">Gazipur / গাজীপুর</option>
+        <option value="Narayanganj">Narayanganj / নারায়ণগঞ্জ</option>
+        <option value="Tejgaon">Tejgaon / Dhaka / তেজগাঁও</option>
+        <option value="Chattogram EPZ">Chattogram EPZ / চট্টগ্রাম ইপিজেড</option>
+        <option value="Comilla EPZ">Comilla EPZ / কুমিল্লা ইপিজেড</option>
+        <option value="Tongi">Tongi / টঙ্গী</option>
+        <option value="Other">Other / অন্যান্য</option>
+      </select>
+    </div>
+    <div class="fg"><label>Factory Type <span class="req">*</span><span class="bn" style="display:none">কারখানার ধরন</span></label>
+      <select id="q_ftype"><option value="">— Select —</option>
+        <option value="Woven">Woven / ওভেন</option>
+        <option value="Knit">Knit / নিট</option>
+        <option value="Sweater">Sweater / সোয়েটার</option>
+        <option value="Dyeing Finishing">Dyeing & Finishing / ডায়িং ও ফিনিশিং</option>
+        <option value="Washing">Washing / ওয়াশিং</option>
+        <option value="Mixed">Mixed / মিশ্র</option>
+      </select>
+    </div>
+  </div>
+  <div class="tc">
+    <div class="fg"><label>Total workforce size <span class="req">*</span><span class="bn" style="display:none">মোট কর্মশক্তির আকার</span></label>
+      <select id="q_workforce"><option value="">— Select —</option>
+        <option value="Less than 500">Less than 500 / ৫০০-এর কম</option>
+        <option value="500–1,000">500–1,000 / ৫০০–১,০০০</option>
+        <option value="1,001–3,000">1,001–3,000 / ১,০০১–৩,০০০</option>
+        <option value="3,001–5,000">3,001–5,000 / ৩,০০১–৫,০০০</option>
+        <option value="5,001–10,000">5,001–10,000 / ৫,০০১–১০,০০০</option>
+        <option value="More than 10,000">More than 10,000 / ১০,০০০-এর বেশি</option>
+      </select>
+    </div>
+    <div class="fg"><label>Approximate % of female workers <span class="req">*</span><span class="bn" style="display:none">আনুমানিক মহিলা শ্রমিকের %</span></label>
+      <select id="q_female_pct"><option value="">— Select —</option>
+        <option value="Less than 30%">Less than 30% / ৩০%-এর কম</option>
+        <option value="30–50%">30–50% / ৩০–৫০%</option>
+        <option value="51–70%">51–70% / ৫১–৭০%</option>
+        <option value="71–85%">71–85% / ৭১–৮৫%</option>
+        <option value="More than 85%">More than 85% / ৮৫%-এর বেশি</option>
+      </select>
+    </div>
+  </div>
+  <div class="nav"><button class="btn btn-o" onclick="next(1)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button><button class="btn btn-p" onclick="next(3)"><span class="en-t">Next</span><span class="bn-t" style="display:none">পরবর্তী</span> →</button></div>
+</div>
+
+<!-- S3: WORKFORCE HEALTH DATA -->
+<div class="sc" id="s3">
+  <div class="sh"><div class="sn c-coral">3</div><div>
+    <div class="st c-coral">Workforce Health Data & Absenteeism Tracking <span class="bn">কর্মশক্তির স্বাস্থ্য তথ্য ও অনুপস্থিতি ট্র্যাকিং</span></div>
+    <div class="ss"><span class="en-t">Your factory's health monitoring and absenteeism records</span><span class="bn" style="display:none;font-family:var(--font-b)">আপনার কারখানার স্বাস্থ্য পর্যবেক্ষণ ও অনুপস্থিতির রেকর্ড</span></div>
+  </div></div>
+  <div class="ib coral"><span class="en-t">Answer based on your HR records and experience. Approximate figures are acceptable.</span><span class="bn" style="display:none">আপনার এইচআর রেকর্ড ও অভিজ্ঞতার ভিত্তিতে উত্তর দিন। আনুমানিক তথ্য গ্রহণযোগ্য।</span></div>
+
+  <div class="fg"><label>Does your factory have a formal system for tracking worker health and illness-related absence? <span class="req">*</span><span class="bn" style="display:none"> শ্রমিকের স্বাস্থ্য ও অসুস্থতাজনিত অনুপস্থিতি ট্র্যাকিংয়ের আনুষ্ঠানিক ব্যবস্থা আছে?</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="radio" name="q_track_sys" id="ts1" value="Yes — digital system"><label for="ts1"><span class="en-lbl">Yes — digital HR system</span><span class="bn-lbl">হ্যাঁ — ডিজিটাল এইচআর সিস্টেম</span></label></div>
+      <div class="ro"><input type="radio" name="q_track_sys" id="ts2" value="Yes — manual register"><label for="ts2"><span class="en-lbl">Yes — manual register / records</span><span class="bn-lbl">হ্যাঁ — ম্যানুয়াল রেজিস্টার</span></label></div>
+      <div class="ro"><input type="radio" name="q_track_sys" id="ts3" value="Partial — attendance only"><label for="ts3"><span class="en-lbl">Partial — attendance only, no illness data</span><span class="bn-lbl">আংশিক — শুধু উপস্থিতি, রোগের তথ্য নেই</span></label></div>
+      <div class="ro"><input type="radio" name="q_track_sys" id="ts4" value="No formal system"><label for="ts4"><span class="en-lbl">No formal system</span><span class="bn-lbl">কোনো আনুষ্ঠানিক ব্যবস্থা নেই</span></label></div>
+    </div>
+  </div>
+
+  <div class="fg"><label>What health-related data does your HR department currently collect? <span class="hint">(select all)</span><span class="bn" style="display:none"> আপনার এইচআর বিভাগ বর্তমানে কোন স্বাস্থ্য সম্পর্কিত তথ্য সংগ্রহ করে?</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="checkbox" id="hd1" name="health_data" value="Sick leave records per worker"><label for="hd1"><span class="en-lbl">Sick leave records per worker</span><span class="bn-lbl">প্রতি শ্রমিকের অসুস্থতা ছুটির রেকর্ড</span></label></div>
+      <div class="ro"><input type="checkbox" id="hd2" name="health_data" value="Illness type / diagnosis data"><label for="hd2"><span class="en-lbl">Illness type / diagnosis data</span><span class="bn-lbl">রোগের ধরন / নির্ণয়ের তথ্য</span></label></div>
+      <div class="ro"><input type="checkbox" id="hd3" name="health_data" value="Workplace injury records"><label for="hd3"><span class="en-lbl">Workplace injury records</span><span class="bn-lbl">কর্মক্ষেত্রে আঘাতের রেকর্ড</span></label></div>
+      <div class="ro"><input type="checkbox" id="hd4" name="health_data" value="Monthly absenteeism rate"><label for="hd4"><span class="en-lbl">Monthly absenteeism rate</span><span class="bn-lbl">মাসিক অনুপস্থিতির হার</span></label></div>
+      <div class="ro"><input type="checkbox" id="hd5" name="health_data" value="Clinic / medical visit records"><label for="hd5"><span class="en-lbl">Clinic / medical visit records</span><span class="bn-lbl">ক্লিনিক / চিকিৎসা পরিদর্শনের রেকর্ড</span></label></div>
+      <div class="ro"><input type="checkbox" id="hd6" name="health_data" value="Overtime and fatigue data"><label for="hd6"><span class="en-lbl">Overtime and fatigue data</span><span class="bn-lbl">ওভারটাইম ও ক্লান্তির তথ্য</span></label></div>
+      <div class="ro"><input type="checkbox" id="hd7" name="health_data" value="Turnover reasons (health-related)"><label for="hd7"><span class="en-lbl">Turnover reasons (health-related)</span><span class="bn-lbl">টার্নওভারের কারণ (স্বাস্থ্য সম্পর্কিত)</span></label></div>
+      <div class="ro"><input type="checkbox" id="hd8" name="health_data" value="None — no health data collected"><label for="hd8"><span class="en-lbl">None — no health data collected</span><span class="bn-lbl">কোনো স্বাস্থ্য তথ্য সংগ্রহ হয় না</span></label></div>
+    </div>
+  </div>
+
+  <div class="metric-row">
+    <div class="metric-card">
+      <div class="metric-label">Avg Monthly Absenteeism Rate<span class="bn" style="display:none">গড় মাসিক অনুপস্থিতির হার</span></div>
+      <select id="q_abs_rate"><option value="">Select</option>
+        <option value="Less than 2%">Less than 2% / ২%-এর কম</option>
+        <option value="2–5%">2–5% / ২–৫%</option>
+        <option value="6–10%">6–10% / ৬–১০%</option>
+        <option value="11–15%">11–15% / ১১–১৫%</option>
+        <option value="More than 15%">More than 15% / ১৫%-এর বেশি</option>
+        <option value="Not tracked">Not tracked / ট্র্যাক করা হয় না</option>
+      </select>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Illness Accounts for Absence<span class="bn" style="display:none">অনুপস্থিতিতে অসুস্থতার অংশ</span></div>
+      <select id="q_illness_pct"><option value="">Select</option>
+        <option value="Less than 25%">Less than 25% / ২৫%-এর কম</option>
+        <option value="25–50%">25–50% / ২৫–৫০%</option>
+        <option value="51–75%">51–75% / ৫১–৭৫%</option>
+        <option value="More than 75%">More than 75% / ৭৫%-এর বেশি</option>
+        <option value="Unknown">Unknown / জানি না</option>
+      </select>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Absenteeism Trend (1 Year)<span class="bn" style="display:none">অনুপস্থিতির প্রবণতা</span></div>
+      <select id="q_trend"><option value="">Select</option>
+        <option value="Significantly increased">Significantly increased / উল্লেখযোগ্যভাবে বেড়েছে</option>
+        <option value="Slightly increased">Slightly increased / সামান্য বেড়েছে</option>
+        <option value="Stable">Stable / স্থিতিশীল</option>
+        <option value="Decreased">Decreased / কমেছে</option>
+        <option value="No data">No data / তথ্য নেই</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="tc">
+    <div class="fg"><label>Peak absenteeism season / period <span class="req">*</span><span class="bn" style="display:none"> সর্বোচ্চ অনুপস্থিতির মৌসুম</span></label>
+      <select id="q_peak_season"><option value="">— Select —</option>
+        <option value="Summer/Hot months">Summer / Hot months / গ্রীষ্মকাল</option>
+        <option value="Winter">Winter / শীতকাল</option>
+        <option value="Monsoon">Monsoon / বর্ষাকাল</option>
+        <option value="Peak production/shipment">Peak production / shipment / পিক প্রোডাকশন</option>
+        <option value="After Eid/holidays">After Eid / holidays / ঈদের পরে</option>
+        <option value="After overtime periods">After overtime periods / ওভারটাইমের পরে</option>
+        <option value="No clear pattern">No clear pattern / কোনো নির্দিষ্ট প্যাটার্ন নেই</option>
+      </select>
+    </div>
+    <div class="fg"><label>Day-of-week absenteeism pattern <span class="req">*</span><span class="bn" style="display:none"> সপ্তাহের কোন দিনে অনুপস্থিতি বেশি?</span></label>
+      <select id="q_day_pattern"><option value="">— Select —</option>
+        <option value="Monday spike">Monday spike / সোমবারে বেশি</option>
+        <option value="Saturday (day before off)">Saturday (day before off) / শনিবার</option>
+        <option value="After public holiday">Day after public holiday / ছুটির পরের দিন</option>
+        <option value="Uniformly distributed">Uniformly distributed / সমানভাবে বিতরণ</option>
+        <option value="No pattern">No clear pattern / কোনো নির্দিষ্ট প্যাটার্ন নেই</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fg"><label>Most common illness-related absence causes in your factory <span class="req">*</span> <span class="hint">(select all)</span><span class="bn" style="display:none"> কারখানায় অসুস্থতাজনিত অনুপস্থিতির সবচেয়ে সাধারণ কারণ</span></label>
+    <div class="pill-grid">
+      <div class="pill"><input type="checkbox" name="abs_causes" id="ac1" value="Musculoskeletal pain (back/neck/joints)"><label for="ac1"><span class="en-lbl">Musculoskeletal pain</span><span class="bn-lbl">হাড়-পেশির ব্যথা</span></label></div>
+      <div class="pill"><input type="checkbox" name="abs_causes" id="ac2" value="Fever / common cold / flu"><label for="ac2"><span class="en-lbl">Fever / cold / flu</span><span class="bn-lbl">জ্বর / সর্দি</span></label></div>
+      <div class="pill"><input type="checkbox" name="abs_causes" id="ac3" value="Gastric / digestive illness"><label for="ac3"><span class="en-lbl">Gastric / digestive illness</span><span class="bn-lbl">গ্যাস্ট্রিক / পেটের সমস্যা</span></label></div>
+      <div class="pill"><input type="checkbox" name="abs_causes" id="ac4" value="Respiratory illness / breathing"><label for="ac4"><span class="en-lbl">Respiratory / breathing illness</span><span class="bn-lbl">শ্বাসতন্ত্রের সমস্যা</span></label></div>
+      <div class="pill"><input type="checkbox" name="abs_causes" id="ac5" value="Workplace injury (accident)"><label for="ac5"><span class="en-lbl">Workplace injury / accident</span><span class="bn-lbl">কর্মক্ষেত্রের আঘাত</span></label></div>
+      <div class="pill"><input type="checkbox" name="abs_causes" id="ac6" value="Mental health / stress / anxiety"><label for="ac6"><span class="en-lbl">Mental health / stress</span><span class="bn-lbl">মানসিক স্বাস্থ্য / চাপ</span></label></div>
+      <div class="pill"><input type="checkbox" name="abs_causes" id="ac7" value="Menstrual issues (female workers)"><label for="ac7"><span class="en-lbl">Menstrual issues (female)</span><span class="bn-lbl">মাসিক সমস্যা (মহিলা)</span></label></div>
+      <div class="pill"><input type="checkbox" name="abs_causes" id="ac8" value="Pregnancy / maternity"><label for="ac8"><span class="en-lbl">Pregnancy / maternity</span><span class="bn-lbl">গর্ভাবস্থা / মাতৃত্ব</span></label></div>
+      <div class="pill"><input type="checkbox" name="abs_causes" id="ac9" value="Anemia / weakness / fatigue"><label for="ac9"><span class="en-lbl">Anemia / weakness / fatigue</span><span class="bn-lbl">রক্তশূন্যতা / দুর্বলতা</span></label></div>
+      <div class="pill"><input type="checkbox" name="abs_causes" id="ac10" value="Skin / chemical allergy"><label for="ac10"><span class="en-lbl">Skin / chemical allergy</span><span class="bn-lbl">ত্বক / রাসায়নিক অ্যালার্জি</span></label></div>
+      <div class="pill"><input type="checkbox" name="abs_causes" id="ac11" value="Headache / migraine"><label for="ac11"><span class="en-lbl">Headache / migraine</span><span class="bn-lbl">মাথাব্যথা / মাইগ্রেন</span></label></div>
+      <div class="pill"><input type="checkbox" name="abs_causes" id="ac12" value="Heat exhaustion / dehydration"><label for="ac12"><span class="en-lbl">Heat exhaustion / dehydration</span><span class="bn-lbl">তাপজনিত ক্লান্তি</span></label></div>
+    </div>
+  </div>
+
+  <div class="fg"><label>Department / section with highest absenteeism rate <span class="req">*</span><span class="bn" style="display:none"> কোন বিভাগে সবচেয়ে বেশি অনুপস্থিতির হার?</span></label>
+    <select id="q_highest_dept"><option value="">— Select —</option>
+      <option value="Sewing floor">Sewing floor / সেলাই ফ্লোর</option>
+      <option value="Cutting section">Cutting section / কাটিং সেকশন</option>
+      <option value="Washing/Dyeing">Washing / Dyeing / ওয়াশিং ও ডায়িং</option>
+      <option value="Quality/Finishing">Quality / Finishing / কোয়ালিটি ও ফিনিশিং</option>
+      <option value="Ironing/Packing">Ironing / Packing / ইস্ত্রি ও প্যাকিং</option>
+      <option value="Equally across all">Equally across all / সব বিভাগে সমান</option>
+      <option value="No data available">No data available / তথ্য নেই</option>
+    </select>
+  </div>
+  <div class="nav"><button class="btn btn-o" onclick="next(2)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button><button class="btn btn-p" onclick="next(4)"><span class="en-t">Next</span><span class="bn-t" style="display:none">পরবর্তী</span> →</button></div>
+</div>
+
+<!-- S4: HR POLICIES -->
+<div class="sc" id="s4">
+  <div class="sh"><div class="sn c-blue">4</div><div>
+    <div class="st c-blue">HR Policies on Health & Leave <span class="bn">স্বাস্থ্য ও ছুটির বিষয়ে এইচআর নীতি</span></div>
+    <div class="ss"><span class="en-t">Your factory's formal policies for worker health, sick leave, and benefits</span><span class="bn" style="display:none;font-family:var(--font-b)">শ্রমিকের স্বাস্থ্য, অসুস্থতা ছুটি ও সুবিধার জন্য আপনার কারখানার আনুষ্ঠানিক নীতি</span></div>
+  </div></div>
+
+  <div class="data-block policy">
+    <div class="db-head"><div class="db-ico policy">📋</div><div><div class="db-title">Leave & Compensation Policies <span class="bn" style="display:none">ছুটি ও ক্ষতিপূরণ নীতি</span></div></div></div>
+    <div class="fg"><label>Does your factory have a formal sick leave policy? <span class="req">*</span><span class="bn" style="display:none"> আনুষ্ঠানিক অসুস্থতা ছুটির নীতি আছে?</span></label>
+      <div class="rg c2">
+        <div class="ro"><input type="radio" name="q_sick_policy" id="sp1" value="Yes — documented and enforced"><label for="sp1"><span class="en-lbl">Yes — documented & enforced</span><span class="bn-lbl">হ্যাঁ — লিখিত ও কার্যকর</span></label></div>
+        <div class="ro"><input type="radio" name="q_sick_policy" id="sp2" value="Yes — documented but inconsistent"><label for="sp2"><span class="en-lbl">Yes — documented but inconsistent</span><span class="bn-lbl">হ্যাঁ — লিখিত কিন্তু অসামঞ্জস্যপূর্ণ</span></label></div>
+        <div class="ro"><input type="radio" name="q_sick_policy" id="sp3" value="Informal only"><label for="sp3"><span class="en-lbl">Informal only — no formal policy</span><span class="bn-lbl">অনানুষ্ঠানিক — কোনো লিখিত নীতি নেই</span></label></div>
+        <div class="ro"><input type="radio" name="q_sick_policy" id="sp4" value="No sick leave allowed"><label for="sp4"><span class="en-lbl">No sick leave allowed</span><span class="bn-lbl">অসুস্থতা ছুটি অনুমোদিত নয়</span></label></div>
+      </div>
+    </div>
+    <div class="tc">
+      <div class="fg"><label>Sick leave days allowed per year (per worker) <span class="req">*</span><span class="bn" style="display:none"> প্রতি বছর অনুমোদিত অসুস্থতা ছুটি (প্রতি শ্রমিক)</span></label>
+        <select id="q_leave_days"><option value="">— Select —</option>
+          <option value="0 days">0 days / ০ দিন</option>
+          <option value="1–3 days">1–3 days / ১–৩ দিন</option>
+          <option value="4–7 days">4–7 days / ৪–৭ দিন (Labour Law min)</option>
+          <option value="8–14 days">8–14 days / ৮–১৪ দিন</option>
+          <option value="More than 14 days">More than 14 days / ১৪ দিনের বেশি</option>
+          <option value="As per need / case basis">As per need / case basis / প্রয়োজন অনুযায়ী</option>
+        </select>
+      </div>
+      <div class="fg"><label>Is sick leave paid? <span class="req">*</span><span class="bn" style="display:none"> অসুস্থতা ছুটি কি বেতনসহ?</span></label>
+        <select id="q_paid_leave"><option value="">— Select —</option>
+          <option value="Yes — fully paid">Yes — fully paid / হ্যাঁ — পূর্ণ বেতনসহ</option>
+          <option value="Yes — partially paid">Yes — partially paid / হ্যাঁ — আংশিক বেতনসহ</option>
+          <option value="No — unpaid only">No — unpaid only / না — বেতন কাটা যায়</option>
+          <option value="Depends on case">Depends on case / ক্ষেত্র অনুযায়ী</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg"><label>Maternity leave policy in place? <span class="req">*</span><span class="bn" style="display:none"> মাতৃত্বকালীন ছুটির নীতি আছে?</span></label>
+      <div class="rg c2">
+        <div class="ro"><input type="radio" name="q_maternity" id="mt1" value="Yes — 16 weeks as per Labour Law"><label for="mt1"><span class="en-lbl">Yes — 16 weeks (Labour Law)</span><span class="bn-lbl">হ্যাঁ — ১৬ সপ্তাহ (শ্রম আইন অনুযায়ী)</span></label></div>
+        <div class="ro"><input type="radio" name="q_maternity" id="mt2" value="Yes — less than legal requirement"><label for="mt2"><span class="en-lbl">Yes — less than legal requirement</span><span class="bn-lbl">হ্যাঁ — আইনি প্রয়োজনের কম</span></label></div>
+        <div class="ro"><input type="radio" name="q_maternity" id="mt3" value="No formal maternity policy"><label for="mt3"><span class="en-lbl">No formal maternity policy</span><span class="bn-lbl">কোনো মাতৃত্ব ছুটির নীতি নেই</span></label></div>
+        <div class="ro"><input type="radio" name="q_maternity" id="mt4" value="Workers terminated when pregnant"><label for="mt4"><span class="en-lbl">Workers often terminated when pregnant</span><span class="bn-lbl">গর্ভবতী হলে প্রায়ই বরখাস্ত</span></label></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="data-block policy">
+    <div class="db-head"><div class="db-ico policy">🛡</div><div><div class="db-title">Health Benefits & Safety <span class="bn" style="display:none">স্বাস্থ্য সুবিধা ও নিরাপত্তা</span></div></div></div>
+    <div class="tc">
+      <div class="fg"><label>Health insurance provided to workers? <span class="req">*</span><span class="bn" style="display:none"> শ্রমিকদের স্বাস্থ্য বীমা দেওয়া হয়?</span></label>
+        <select id="q_insurance"><option value="">— Select —</option>
+          <option value="Yes — full coverage">Yes — full coverage / হ্যাঁ — পূর্ণ কভারেজ</option>
+          <option value="Yes — partial/group insurance">Yes — partial / group insurance / হ্যাঁ — আংশিক</option>
+          <option value="No — not provided">No — not provided / না — দেওয়া হয় না</option>
+          <option value="Planned but not implemented">Planned but not yet implemented / পরিকল্পিত কিন্তু বাস্তবায়িত হয়নি</option>
+        </select>
+      </div>
+      <div class="fg"><label>Factory clinic / medical facility available? <span class="req">*</span><span class="bn" style="display:none"> কারখানায় ক্লিনিক / চিকিৎসা সুবিধা আছে?</span></label>
+        <select id="q_clinic"><option value="">— Select —</option>
+          <option value="Yes — full clinic with doctor">Yes — full clinic with doctor / হ্যাঁ — পূর্ণ ক্লিনিক</option>
+          <option value="Yes — nurse/paramedic only">Yes — nurse / paramedic only / হ্যাঁ — নার্স / প্যারামেডিক</option>
+          <option value="First-aid room only">First-aid room only / শুধু প্রাথমিক চিকিৎসা কক্ষ</option>
+          <option value="No medical facility">No medical facility / কোনো চিকিৎসা সুবিধা নেই</option>
+        </select>
+      </div>
+    </div>
+    <div class="tc">
+      <div class="fg"><label>Worker compensation for workplace injuries? <span class="req">*</span><span class="bn" style="display:none"> কর্মক্ষেত্রে আঘাতের জন্য ক্ষতিপূরণ দেওয়া হয়?</span></label>
+        <select id="q_compensation"><option value="">— Select —</option>
+          <option value="Yes — full compensation per Labour Law">Yes — full (Labour Law) / হ্যাঁ — পূর্ণ ক্ষতিপূরণ</option>
+          <option value="Yes — partial compensation">Yes — partial / হ্যাঁ — আংশিক</option>
+          <option value="Case by case — no formal policy">Case by case / ক্ষেত্র অনুযায়ী</option>
+          <option value="No compensation provided">No compensation / কোনো ক্ষতিপূরণ নেই</option>
+        </select>
+      </div>
+      <div class="fg"><label>Return-to-work protocol for long-term sick workers? <span class="req">*</span><span class="bn" style="display:none"> দীর্ঘমেয়াদী অসুস্থ শ্রমিকদের কাজে ফেরার প্রোটোকল?</span></label>
+        <select id="q_rtw"><option value="">— Select —</option>
+          <option value="Yes — formal RTW protocol">Yes — formal protocol / হ্যাঁ — আনুষ্ঠানিক প্রোটোকল</option>
+          <option value="Informal — case by case">Informal — case by case / অনানুষ্ঠানিক</option>
+          <option value="No protocol — just return when able">No protocol — just return when able / কোনো প্রোটোকল নেই</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg"><label>Is there a disciplinary process for workers with frequent health-related absences? <span class="req">*</span><span class="bn" style="display:none"> ঘন ঘন অনুপস্থিতির জন্য শৃঙ্খলামূলক প্রক্রিয়া আছে?</span></label>
+      <div class="rg c2">
+        <div class="ro"><input type="radio" name="q_discipline" id="di1" value="Yes — formal warning system"><label for="di1"><span class="en-lbl">Yes — formal warning system</span><span class="bn-lbl">হ্যাঁ — আনুষ্ঠানিক সতর্কতা ব্যবস্থা</span></label></div>
+        <div class="ro"><input type="radio" name="q_discipline" id="di2" value="Yes — salary deduction"><label for="di2"><span class="en-lbl">Yes — salary deduction</span><span class="bn-lbl">হ্যাঁ — বেতন কাটা</span></label></div>
+        <div class="ro"><input type="radio" name="q_discipline" id="di3" value="Case-by-case discretion"><label for="di3"><span class="en-lbl">Case-by-case discretion</span><span class="bn-lbl">ক্ষেত্র অনুযায়ী বিবেচনা</span></label></div>
+        <div class="ro"><input type="radio" name="q_discipline" id="di4" value="No — absence treated as medical leave"><label for="di4"><span class="en-lbl">No — treated as medical leave</span><span class="bn-lbl">না — চিকিৎসা ছুটি হিসেবে গণ্য</span></label></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav"><button class="btn btn-o" onclick="next(3)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button><button class="btn btn-p" onclick="next(5)"><span class="en-t">Next</span><span class="bn-t" style="display:none">পরবর্তী</span> →</button></div>
+</div>
+
+<!-- S5: IMPACT ON HR OPERATIONS -->
+<div class="sc" id="s5">
+  <div class="sh"><div class="sn c-amber">5</div><div>
+    <div class="st c-amber">Impact on HR Operations <span class="bn">এইচআর কার্যক্রমে প্রভাব</span></div>
+    <div class="ss"><span class="en-t">How worker illness affects recruitment, turnover, and HR costs</span><span class="bn" style="display:none;font-family:var(--font-b)">শ্রমিকের অসুস্থতা নিয়োগ, টার্নওভার ও এইচআর খরচে কীভাবে প্রভাবিত করে</span></div>
+  </div></div>
+  <div class="ib amber"><span class="en-t">Approximate figures and estimates are acceptable — this data is used only for research analysis.</span><span class="bn" style="display:none">আনুমানিক সংখ্যা গ্রহণযোগ্য — এই তথ্য শুধুমাত্র গবেষণা বিশ্লেষণের জন্য।</span></div>
+
+  <div class="fg"><label>How significantly does worker illness contribute to voluntary turnover (resignation)? <span class="req">*</span><span class="bn" style="display:none"> শ্রমিকের অসুস্থতা স্বেচ্ছা টার্নওভারে (পদত্যাগ) কতটা ভূমিকা রাখে?</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="radio" name="q_turnover_impact" id="ti1" value="Major contributor — very significant"><label for="ti1"><span class="en-lbl">Major contributor — very significant</span><span class="bn-lbl">প্রধান কারণ — অত্যন্ত উল্লেখযোগ্য</span></label></div>
+      <div class="ro"><input type="radio" name="q_turnover_impact" id="ti2" value="Significant contributor"><label for="ti2"><span class="en-lbl">Significant contributor</span><span class="bn-lbl">উল্লেখযোগ্য অবদান</span></label></div>
+      <div class="ro"><input type="radio" name="q_turnover_impact" id="ti3" value="Moderate contributor"><label for="ti3"><span class="en-lbl">Moderate contributor</span><span class="bn-lbl">মাঝারি অবদান</span></label></div>
+      <div class="ro"><input type="radio" name="q_turnover_impact" id="ti4" value="Minor contributor"><label for="ti4"><span class="en-lbl">Minor contributor</span><span class="bn-lbl">সামান্য অবদান</span></label></div>
+      <div class="ro"><input type="radio" name="q_turnover_impact" id="ti5" value="Not a factor"><label for="ti5"><span class="en-lbl">Not a significant factor</span><span class="bn-lbl">উল্লেখযোগ্য কারণ নয়</span></label></div>
+    </div>
+  </div>
+
+  <div class="tc">
+    <div class="fg"><label>Approximate annual worker turnover rate <span class="req">*</span><span class="bn" style="display:none"> আনুমানিক বার্ষিক টার্নওভারের হার</span></label>
+      <select id="q_turnover_rate"><option value="">— Select —</option>
+        <option value="Less than 5%">Less than 5% / ৫%-এর কম</option>
+        <option value="5–10%">5–10% / ৫–১০%</option>
+        <option value="11–20%">11–20% / ১১–২০%</option>
+        <option value="21–35%">21–35% / ২১–৩৫%</option>
+        <option value="More than 35%">More than 35% / ৩৫%-এর বেশি</option>
+        <option value="Not tracked">Not tracked / ট্র্যাক করা হয় না</option>
+      </select>
+    </div>
+    <div class="fg"><label>Estimated productivity loss due to worker illness (overall) <span class="req">*</span><span class="bn" style="display:none"> শ্রমিকের অসুস্থতার কারণে আনুমানিক উৎপাদনশীলতা ক্ষতি</span></label>
+      <select id="q_prod_loss"><option value="">— Select —</option>
+        <option value="Less than 5%">Less than 5% / ৫%-এর কম</option>
+        <option value="5–10%">5–10% / ৫–১০%</option>
+        <option value="11–20%">11–20% / ১১–২০%</option>
+        <option value="21–30%">21–30% / ২১–৩০%</option>
+        <option value="More than 30%">More than 30% / ৩০%-এর বেশি</option>
+        <option value="Cannot estimate">Cannot estimate / অনুমান করা সম্ভব নয়</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fg"><label>Health-related reasons workers most commonly cite when resigning <span class="hint">(select all)</span><span class="bn" style="display:none"> পদত্যাগের সময় শ্রমিকরা স্বাস্থ্য সম্পর্কিত যে কারণগুলো সবচেয়ে বেশি উল্লেখ করে</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="checkbox" id="hr1" name="health_resign" value="Chronic physical pain from work"><label for="hr1"><span class="en-lbl">Chronic physical pain from work</span><span class="bn-lbl">কাজ থেকে দীর্ঘস্থায়ী শারীরিক ব্যথা</span></label></div>
+      <div class="ro"><input type="checkbox" id="hr2" name="health_resign" value="Work-related stress / burnout"><label for="hr2"><span class="en-lbl">Work-related stress / burnout</span><span class="bn-lbl">কাজের চাপ / বার্নআউট</span></label></div>
+      <div class="ro"><input type="checkbox" id="hr3" name="health_resign" value="Injury that prevents continued work"><label for="hr3"><span class="en-lbl">Injury that prevents continued work</span><span class="bn-lbl">আঘাত যা কাজ চালিয়ে যেতে বাধা দেয়</span></label></div>
+      <div class="ro"><input type="checkbox" id="hr4" name="health_resign" value="Pregnancy / maternity concerns"><label for="hr4"><span class="en-lbl">Pregnancy / maternity concerns</span><span class="bn-lbl">গর্ভাবস্থা / মাতৃত্ব উদ্বেগ</span></label></div>
+      <div class="ro"><input type="checkbox" id="hr5" name="health_resign" value="Unable to cope with physical demands"><label for="hr5"><span class="en-lbl">Unable to cope with physical demands</span><span class="bn-lbl">শারীরিক চাহিদা মেটাতে অক্ষম</span></label></div>
+      <div class="ro"><input type="checkbox" id="hr6" name="health_resign" value="Feeling unwell most working days"><label for="hr6"><span class="en-lbl">Feeling unwell most working days</span><span class="bn-lbl">বেশিরভাগ কর্মদিনে অসুস্থ বোধ</span></label></div>
+      <div class="ro"><input type="checkbox" id="hr7" name="health_resign" value="No health support from employer"><label for="hr7"><span class="en-lbl">No health support from employer</span><span class="bn-lbl">নিয়োগকর্তার কাছ থেকে স্বাস্থ্য সহায়তা নেই</span></label></div>
+      <div class="ro"><input type="checkbox" id="hr8" name="health_resign" value="Workers don't cite health reasons explicitly"><label for="hr8"><span class="en-lbl">Workers don't cite health reasons explicitly</span><span class="bn-lbl">শ্রমিকরা স্বাস্থ্যের কারণ স্পষ্টভাবে উল্লেখ করে না</span></label></div>
+    </div>
+  </div>
+
+  <div class="fg"><label>Key HR challenges arising from worker illness <span class="req">*</span> <span class="hint">(select all)</span><span class="bn" style="display:none"> শ্রমিকের অসুস্থতা থেকে উদ্ভূত প্রধান এইচআর চ্যালেঞ্জ</span></label>
+    <div class="data-block impact">
+      <div class="db-head"><div class="db-ico impact">⚡</div><div><div class="db-title">Operational HR Challenges <span class="bn" style="display:none">পরিচালনামূলক এইচআর চ্যালেঞ্জ</span></div></div></div>
+      <div class="pill-grid">
+        <div class="pill"><input type="checkbox" name="hr_challenges" id="hc1" value="High recruitment costs due to frequent turnover"><label for="hc1"><span class="en-lbl">High recruitment costs (frequent turnover)</span><span class="bn-lbl">নিয়োগের উচ্চ খরচ (ঘন টার্নওভার)</span></label></div>
+        <div class="pill"><input type="checkbox" name="hr_challenges" id="hc2" value="Training new replacements repeatedly"><label for="hc2"><span class="en-lbl">Repeatedly training new replacements</span><span class="bn-lbl">বারবার প্রশিক্ষণ প্রদান</span></label></div>
+        <div class="pill"><input type="checkbox" name="hr_challenges" id="hc3" value="Managing daily absenteeism roster gaps"><label for="hc3"><span class="en-lbl">Managing daily absenteeism roster gaps</span><span class="bn-lbl">দৈনিক অনুপস্থিতির রোস্টার ব্যবধান</span></label></div>
+        <div class="pill"><input type="checkbox" name="hr_challenges" id="hc4" value="Overtime costs to cover absent workers"><label for="hc4"><span class="en-lbl">Overtime costs to cover absent workers</span><span class="bn-lbl">অনুপস্থিত শ্রমিকদের জন্য ওভারটাইম খরচ</span></label></div>
+        <div class="pill"><input type="checkbox" name="hr_challenges" id="hc5" value="Maintaining production targets with fewer workers"><label for="hc5"><span class="en-lbl">Maintaining targets with fewer workers</span><span class="bn-lbl">কম শ্রমিকে উৎপাদন লক্ষ্যমাত্রা বজায় রাখা</span></label></div>
+        <div class="pill"><input type="checkbox" name="hr_challenges" id="hc6" value="Compliance with labour law sick leave requirements"><label for="hc6"><span class="en-lbl">Labour law compliance on sick leave</span><span class="bn-lbl">শ্রম আইন মেনে চলা</span></label></div>
+        <div class="pill"><input type="checkbox" name="hr_challenges" id="hc7" value="No formal data to track health trends"><label for="hc7"><span class="en-lbl">No formal data to track health trends</span><span class="bn-lbl">স্বাস্থ্য প্রবণতা ট্র্যাকের তথ্য নেই</span></label></div>
+        <div class="pill"><input type="checkbox" name="hr_challenges" id="hc8" value="Worker reluctance to disclose illness"><label for="hc8"><span class="en-lbl">Worker reluctance to disclose illness</span><span class="bn-lbl">অসুস্থতা প্রকাশে শ্রমিকের অনিচ্ছা</span></label></div>
+        <div class="pill"><input type="checkbox" name="hr_challenges" id="hc9" value="Handling pregnancy and maternity complications"><label for="hc9"><span class="en-lbl">Handling pregnancy / maternity cases</span><span class="bn-lbl">গর্ভাবস্থা / মাতৃত্বকালীন কেস পরিচালনা</span></label></div>
+        <div class="pill"><input type="checkbox" name="hr_challenges" id="hc10" value="Mental health cases with no support infrastructure"><label for="hc10"><span class="en-lbl">Mental health cases — no support infrastructure</span><span class="bn-lbl">মানসিক স্বাস্থ্য — সহায়তা অবকাঠামো নেই</span></label></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav"><button class="btn btn-o" onclick="next(4)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button><button class="btn btn-p" onclick="next(6)"><span class="en-t">Next</span><span class="bn-t" style="display:none">পরবর্তী</span> →</button></div>
+</div>
+
+<!-- S6: WELLBEING PROGRAMS -->
+<div class="sc" id="s6">
+  <div class="sh"><div class="sn c-rose">6</div><div>
+    <div class="st c-rose">Wellbeing Programs & Initiatives <span class="bn">কল্যাণ কর্মসূচি ও উদ্যোগ</span></div>
+    <div class="ss"><span class="en-t">Current health and wellbeing initiatives run by your HR department</span><span class="bn" style="display:none;font-family:var(--font-b)">আপনার এইচআর বিভাগের বর্তমান স্বাস্থ্য ও কল্যাণ উদ্যোগ</span></div>
+  </div></div>
+
+  <div class="fg"><label>Current wellbeing programs or health initiatives in your factory <span class="hint">(select all that exist)</span><span class="bn" style="display:none"> কারখানায় বর্তমান কল্যাণ কর্মসূচি বা স্বাস্থ্য উদ্যোগ</span></label>
+    <div class="data-block wellbeing">
+      <div class="db-head"><div class="db-ico wellbeing">🌿</div><div><div class="db-title">Active Wellbeing Initiatives <span class="bn" style="display:none">সক্রিয় কল্যাণ উদ্যোগ</span></div></div></div>
+      <div class="rg c2">
+        <div class="ro"><input type="checkbox" id="wb1" name="wellbeing" value="Factory clinic / medical room"><label for="wb1"><span class="en-lbl">Factory clinic / medical room</span><span class="bn-lbl">কারখানা ক্লিনিক / চিকিৎসা কক্ষ</span></label></div>
+        <div class="ro"><input type="checkbox" id="wb2" name="wellbeing" value="Regular health check-up camps"><label for="wb2"><span class="en-lbl">Regular health check-up camps</span><span class="bn-lbl">নিয়মিত স্বাস্থ্য পরীক্ষা শিবির</span></label></div>
+        <div class="ro"><input type="checkbox" id="wb3" name="wellbeing" value="Subsidized or free canteen meals"><label for="wb3"><span class="en-lbl">Subsidized / free canteen meals</span><span class="bn-lbl">ভর্তুকি / বিনামূল্যে ক্যান্টিন খাবার</span></label></div>
+        <div class="ro"><input type="checkbox" id="wb4" name="wellbeing" value="Safety training programs"><label for="wb4"><span class="en-lbl">Safety training programs</span><span class="bn-lbl">নিরাপত্তা প্রশিক্ষণ কর্মসূচি</span></label></div>
+        <div class="ro"><input type="checkbox" id="wb5" name="wellbeing" value="Health awareness workshops / sessions"><label for="wb5"><span class="en-lbl">Health awareness workshops</span><span class="bn-lbl">স্বাস্থ্য সচেতনতা কর্মশালা</span></label></div>
+        <div class="ro"><input type="checkbox" id="wb6" name="wellbeing" value="Ergonomics improvement program"><label for="wb6"><span class="en-lbl">Ergonomics improvement program</span><span class="bn-lbl">এরগোনমিক্স উন্নতি কর্মসূচি</span></label></div>
+        <div class="ro"><input type="checkbox" id="wb7" name="wellbeing" value="Mental health counseling / support"><label for="wb7"><span class="en-lbl">Mental health counseling / support</span><span class="bn-lbl">মানসিক স্বাস্থ্য কাউন্সেলিং</span></label></div>
+        <div class="ro"><input type="checkbox" id="wb8" name="wellbeing" value="Reproductive health program for female workers"><label for="wb8"><span class="en-lbl">Reproductive health program (female)</span><span class="bn-lbl">প্রজনন স্বাস্থ্য কর্মসূচি (মহিলা)</span></label></div>
+        <div class="ro"><input type="checkbox" id="wb9" name="wellbeing" value="Clean drinking water stations"><label for="wb9"><span class="en-lbl">Clean drinking water stations</span><span class="bn-lbl">বিশুদ্ধ পানির কেন্দ্র</span></label></div>
+        <div class="ro"><input type="checkbox" id="wb10" name="wellbeing" value="Rest rooms / prayer rooms"><label for="wb10"><span class="en-lbl">Rest rooms / prayer rooms</span><span class="bn-lbl">বিশ্রাম / নামাজ কক্ষ</span></label></div>
+        <div class="ro"><input type="checkbox" id="wb11" name="wellbeing" value="Employee assistance / grievance program"><label for="wb11"><span class="en-lbl">Employee assistance / grievance program</span><span class="bn-lbl">কর্মী সহায়তা / অভিযোগ কর্মসূচি</span></label></div>
+        <div class="ro"><input type="checkbox" id="wb12" name="wellbeing" value="None currently in place"><label for="wb12"><span class="en-lbl">None currently in place</span><span class="bn-lbl">বর্তমানে কোনোটি নেই</span></label></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fg"><label>Is there formal mental health support available to workers? <span class="req">*</span><span class="bn" style="display:none"> শ্রমিকদের জন্য আনুষ্ঠানিক মানসিক স্বাস্থ্য সহায়তা আছে?</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="radio" name="q_mh_support" id="mh1" value="Yes — dedicated counselor available"><label for="mh1"><span class="en-lbl">Yes — dedicated counselor available</span><span class="bn-lbl">হ্যাঁ — নিবেদিত কাউন্সেলর আছে</span></label></div>
+      <div class="ro"><input type="radio" name="q_mh_support" id="mh2" value="Yes — via welfare officer / HR"><label for="mh2"><span class="en-lbl">Yes — via welfare officer / HR</span><span class="bn-lbl">হ্যাঁ — কল্যাণ অফিসার / এইচআর মাধ্যমে</span></label></div>
+      <div class="ro"><input type="radio" name="q_mh_support" id="mh3" value="Referral to external support only"><label for="mh3"><span class="en-lbl">Referral to external support only</span><span class="bn-lbl">শুধু বাইরের সংস্থায় রেফারেল</span></label></div>
+      <div class="ro"><input type="radio" name="q_mh_support" id="mh4" value="No mental health support available"><label for="mh4"><span class="en-lbl">No mental health support available</span><span class="bn-lbl">কোনো মানসিক স্বাস্থ্য সহায়তা নেই</span></label></div>
+    </div>
+  </div>
+
+  <div class="tc">
+    <div class="fg"><label>Frequency of safety and health training for workers <span class="req">*</span><span class="bn" style="display:none"> শ্রমিকদের জন্য নিরাপত্তা ও স্বাস্থ্য প্রশিক্ষণের ঘনত্ব</span></label>
+      <select id="q_training_freq"><option value="">— Select —</option>
+        <option value="Monthly">Monthly / মাসিক</option>
+        <option value="Quarterly">Quarterly / ত্রৈমাসিক</option>
+        <option value="Twice a year">Twice a year / বছরে দুইবার</option>
+        <option value="Annually">Annually / বার্ষিক</option>
+        <option value="Only during induction">Only during induction / শুধু যোগদানে</option>
+        <option value="No formal training">No formal training / কোনো আনুষ্ঠানিক প্রশিক্ষণ নেই</option>
+      </select>
+    </div>
+    <div class="fg"><label>Is there a worker health committee or health focal person? <span class="req">*</span><span class="bn" style="display:none"> শ্রমিক স্বাস্থ্য কমিটি বা স্বাস্থ্য ফোকাল ব্যক্তি আছে?</span></label>
+      <select id="q_committee"><option value="">— Select —</option>
+        <option value="Yes — active health committee">Yes — active health committee / হ্যাঁ — সক্রিয় কমিটি</option>
+        <option value="Yes — but inactive">Yes — but inactive / হ্যাঁ — কিন্তু নিষ্ক্রিয়</option>
+        <option value="No committee — HR handles directly">No committee — HR handles directly / নেই — এইচআর সরাসরি</option>
+        <option value="No formal structure">No formal structure / কোনো আনুষ্ঠানিক কাঠামো নেই</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="tc">
+    <div class="fg"><label>Level of collaboration between HR and the factory clinic / doctor <span class="req">*</span><span class="bn" style="display:none"> এইচআর ও কারখানার ক্লিনিক / চিকিৎসকের মধ্যে সহযোগিতার মাত্রা</span></label>
+      <select id="q_clinic_collab"><option value="">— Select —</option>
+        <option value="Close — regular data sharing and coordination">Close — regular data sharing / ঘনিষ্ঠ — নিয়মিত তথ্য ভাগাভাগি</option>
+        <option value="Some — occasional coordination">Some — occasional coordination / কিছুটা — মাঝেমধ্যে সমন্বয়</option>
+        <option value="Minimal — separate departments">Minimal — mostly separate / ন্যূনতম — মূলত আলাদা</option>
+        <option value="No clinic/doctor in factory">No clinic / doctor in factory / কারখানায় ক্লিনিক/চিকিৎসক নেই</option>
+      </select>
+    </div>
+    <div class="fg"><label>Do you partner with any external NGO or health organization? <span class="req">*</span><span class="bn" style="display:none"> কোনো বাহ্যিক এনজিও বা স্বাস্থ্য সংস্থার সাথে অংশীদারিত্ব আছে?</span></label>
+      <select id="q_ngo"><option value="">— Select —</option>
+        <option value="Yes — active NGO partnership">Yes — active partnership / হ্যাঁ — সক্রিয় অংশীদারিত্ব</option>
+        <option value="Yes — limited / occasional">Yes — limited / occasional / হ্যাঁ — সীমিত</option>
+        <option value="No — but interested">No — but interested / না — কিন্তু আগ্রহী</option>
+        <option value="No partnership">No partnership / কোনো অংশীদারিত্ব নেই</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fg"><label>Is your current wellbeing budget adequate to address worker health needs? <span class="req">*</span><span class="bn" style="display:none"> শ্রমিকের স্বাস্থ্য চাহিদা পূরণে বর্তমান কল্যাণ বাজেট কি পর্যাপ্ত?</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="radio" name="q_budget" id="bu1" value="More than adequate"><label for="bu1"><span class="en-lbl">More than adequate</span><span class="bn-lbl">প্রয়োজনের চেয়ে বেশি</span></label></div>
+      <div class="ro"><input type="radio" name="q_budget" id="bu2" value="Adequate for basic needs"><label for="bu2"><span class="en-lbl">Adequate for basic needs</span><span class="bn-lbl">মৌলিক প্রয়োজনের জন্য পর্যাপ্ত</span></label></div>
+      <div class="ro"><input type="radio" name="q_budget" id="bu3" value="Insufficient — we need more resources"><label for="bu3"><span class="en-lbl">Insufficient — need more resources</span><span class="bn-lbl">অপর্যাপ্ত — আরও সম্পদ প্রয়োজন</span></label></div>
+      <div class="ro"><input type="radio" name="q_budget" id="bu4" value="No dedicated wellbeing budget"><label for="bu4"><span class="en-lbl">No dedicated wellbeing budget</span><span class="bn-lbl">কোনো নির্ধারিত কল্যাণ বাজেট নেই</span></label></div>
+    </div>
+  </div>
+  <div class="nav"><button class="btn btn-o" onclick="next(5)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button><button class="btn btn-p" onclick="next(7)"><span class="en-t">Next</span><span class="bn-t" style="display:none">পরবর্তী</span> →</button></div>
+</div>
+
+<!-- S7: RECOMMENDATIONS -->
+<div class="sc" id="s7">
+  <div class="sh"><div class="sn c-green">7</div><div>
+    <div class="st c-green">HR Recommendations <span class="bn">এইচআর সুপারিশ</span></div>
+    <div class="ss"><span class="en-t">Your professional recommendations for improving worker health management in the RMG sector</span><span class="bn" style="display:none;font-family:var(--font-b)">আরএমজি খাতে শ্রমিক স্বাস্থ্য ব্যবস্থাপনা উন্নয়নে আপনার পেশাদার সুপারিশ</span></div>
+  </div></div>
+  <div class="ib purple"><span class="en-t">Your insights as an HR professional directly inform policy recommendations in this research. Please be candid and specific.</span><span class="bn" style="display:none">একজন এইচআর পেশাদার হিসেবে আপনার অন্তর্দৃষ্টি এই গবেষণার নীতি সুপারিশকে সরাসরি প্রভাবিত করে।</span></div>
+
+  <div class="fg"><label>Priority HR interventions to reduce illness-related absenteeism <span class="req">*</span> <span class="hint">(select all)</span><span class="bn" style="display:none"> অসুস্থতাজনিত অনুপস্থিতি কমাতে অগ্রাধিকার এইচআর হস্তক্ষেপ</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="checkbox" id="pi1" name="priority_int" value="Implement formal health tracking system"><label for="pi1"><span class="en-lbl">Implement formal health tracking system</span><span class="bn-lbl">আনুষ্ঠানিক স্বাস্থ্য ট্র্যাকিং সিস্টেম চালু</span></label></div>
+      <div class="ro"><input type="checkbox" id="pi2" name="priority_int" value="Expand sick leave entitlement"><label for="pi2"><span class="en-lbl">Expand sick leave entitlement</span><span class="bn-lbl">অসুস্থতা ছুটির অধিকার বাড়ানো</span></label></div>
+      <div class="ro"><input type="checkbox" id="pi3" name="priority_int" value="Ensure paid sick leave for all workers"><label for="pi3"><span class="en-lbl">Ensure paid sick leave for all workers</span><span class="bn-lbl">সকল শ্রমিকের জন্য বেতনসহ ছুটি নিশ্চিত</span></label></div>
+      <div class="ro"><input type="checkbox" id="pi4" name="priority_int" value="Mandatory health insurance coverage"><label for="pi4"><span class="en-lbl">Mandatory health insurance coverage</span><span class="bn-lbl">বাধ্যতামূলক স্বাস্থ্য বীমা কভারেজ</span></label></div>
+      <div class="ro"><input type="checkbox" id="pi5" name="priority_int" value="Regular health screening for all workers"><label for="pi5"><span class="en-lbl">Regular health screening for all workers</span><span class="bn-lbl">সকল শ্রমিকের নিয়মিত স্বাস্থ্য পরীক্ষা</span></label></div>
+      <div class="ro"><input type="checkbox" id="pi6" name="priority_int" value="Strengthen factory clinic / medical team"><label for="pi6"><span class="en-lbl">Strengthen factory clinic / medical team</span><span class="bn-lbl">কারখানার ক্লিনিক / চিকিৎসা দল শক্তিশালীকরণ</span></label></div>
+      <div class="ro"><input type="checkbox" id="pi7" name="priority_int" value="Introduce mental health counseling program"><label for="pi7"><span class="en-lbl">Introduce mental health counseling</span><span class="bn-lbl">মানসিক স্বাস্থ্য কাউন্সেলিং চালু</span></label></div>
+      <div class="ro"><input type="checkbox" id="pi8" name="priority_int" value="Ergonomic workstation improvements"><label for="pi8"><span class="en-lbl">Ergonomic workstation improvements</span><span class="bn-lbl">এরগোনমিক কর্মস্থান উন্নতি</span></label></div>
+      <div class="ro"><input type="checkbox" id="pi9" name="priority_int" value="Reduce overtime hours / enforce rest breaks"><label for="pi9"><span class="en-lbl">Reduce overtime / enforce rest breaks</span><span class="bn-lbl">ওভারটাইম কমানো / বিরতি নিশ্চিত</span></label></div>
+      <div class="ro"><input type="checkbox" id="pi10" name="priority_int" value="Create skilled backup workforce pool"><label for="pi10"><span class="en-lbl">Create skilled backup workforce pool</span><span class="bn-lbl">দক্ষ ব্যাকআপ কর্মশক্তির পুল তৈরি</span></label></div>
+    </div>
+  </div>
+
+  <div class="fg"><label>Policy changes recommended at factory or national level <span class="hint">(select all)</span><span class="bn" style="display:none"> কারখানা বা জাতীয় পর্যায়ে সুপারিশকৃত নীতি পরিবর্তন</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="checkbox" id="pc1" name="policy_changes" value="Mandatory occupational health officer in all factories"><label for="pc1"><span class="en-lbl">Mandatory OHS officer in all factories</span><span class="bn-lbl">সব কারখানায় বাধ্যতামূলক ওএইচএস অফিসার</span></label></div>
+      <div class="ro"><input type="checkbox" id="pc2" name="policy_changes" value="Increase minimum sick leave to 14 days by law"><label for="pc2"><span class="en-lbl">Increase minimum sick leave to 14 days</span><span class="bn-lbl">ন্যূনতম অসুস্থতা ছুটি ১৪ দিনে বাড়ানো</span></label></div>
+      <div class="ro"><input type="checkbox" id="pc3" name="policy_changes" value="Mandatory health insurance by law"><label for="pc3"><span class="en-lbl">Mandatory health insurance by law</span><span class="bn-lbl">আইন দ্বারা বাধ্যতামূলক স্বাস্থ্য বীমা</span></label></div>
+      <div class="ro"><input type="checkbox" id="pc4" name="policy_changes" value="HR required to submit annual health reports"><label for="pc4"><span class="en-lbl">Annual HR health report submission required</span><span class="bn-lbl">বার্ষিক এইচআর স্বাস্থ্য রিপোর্ট জমা বাধ্যতামূলক</span></label></div>
+      <div class="ro"><input type="checkbox" id="pc5" name="policy_changes" value="Pregnancy protection — no termination policy"><label for="pc5"><span class="en-lbl">Pregnancy protection — no termination</span><span class="bn-lbl">গর্ভাবস্থায় বরখাস্ত নিষেধ নীতি</span></label></div>
+      <div class="ro"><input type="checkbox" id="pc6" name="policy_changes" value="Buyer brands to include worker health in audits"><label for="pc6"><span class="en-lbl">Buyer brands to include health in audits</span><span class="bn-lbl">ক্রেতা ব্র্যান্ডের অডিটে স্বাস্থ্য অন্তর্ভুক্তি</span></label></div>
+    </div>
+  </div>
+
+  <div class="fg"><label>What improvements are needed in HR's health data collection and management? <span class="hint">(select all)</span><span class="bn" style="display:none"> এইচআরের স্বাস্থ্য তথ্য সংগ্রহ ও ব্যবস্থাপনায় কী উন্নতি প্রয়োজন?</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="checkbox" id="di1" name="data_improvements" value="Digital HR system with health tracking module"><label for="di1"><span class="en-lbl">Digital HR system with health module</span><span class="bn-lbl">স্বাস্থ্য মডিউল সহ ডিজিটাল এইচআর সিস্টেম</span></label></div>
+      <div class="ro"><input type="checkbox" id="di2" name="data_improvements" value="Standard illness classification and recording forms"><label for="di2"><span class="en-lbl">Standard illness classification forms</span><span class="bn-lbl">মানসম্মত রোগ শ্রেণীবিভাগ ফর্ম</span></label></div>
+      <div class="ro"><input type="checkbox" id="di3" name="data_improvements" value="HR-clinic data integration"><label for="di3"><span class="en-lbl">HR-clinic data integration</span><span class="bn-lbl">এইচআর-ক্লিনিক তথ্য একীভূতকরণ</span></label></div>
+      <div class="ro"><input type="checkbox" id="di4" name="data_improvements" value="Monthly health dashboard / reporting"><label for="di4"><span class="en-lbl">Monthly health dashboard / reporting</span><span class="bn-lbl">মাসিক স্বাস্থ্য ড্যাশবোর্ড / রিপোর্টিং</span></label></div>
+      <div class="ro"><input type="checkbox" id="di5" name="data_improvements" value="Training HR staff on health data management"><label for="di5"><span class="en-lbl">Training HR staff on health data</span><span class="bn-lbl">এইচআর কর্মীদের স্বাস্থ্য তথ্য প্রশিক্ষণ</span></label></div>
+      <div class="ro"><input type="checkbox" id="di6" name="data_improvements" value="Anonymous health surveys for workers"><label for="di6"><span class="en-lbl">Anonymous health surveys for workers</span><span class="bn-lbl">শ্রমিকদের জন্য বেনামী স্বাস্থ্য জরিপ</span></label></div>
+    </div>
+  </div>
+
+  <div class="fg"><label>Best strategies to engage workers in maintaining their own health <span class="hint">(select all)</span><span class="bn" style="display:none"> শ্রমিকদের নিজের স্বাস্থ্য বজায় রাখতে সম্পৃক্ত করার সেরা কৌশল</span></label>
+    <div class="rg c2">
+      <div class="ro"><input type="checkbox" id="es1" name="engagement" value="Health incentive / reward programs"><label for="es1"><span class="en-lbl">Health incentive / reward programs</span><span class="bn-lbl">স্বাস্থ্য প্রণোদনা / পুরস্কার কর্মসূচি</span></label></div>
+      <div class="ro"><input type="checkbox" id="es2" name="engagement" value="Peer health ambassador / champion program"><label for="es2"><span class="en-lbl">Peer health ambassador program</span><span class="bn-lbl">সহকর্মী স্বাস্থ্য দূত কর্মসূচি</span></label></div>
+      <div class="ro"><input type="checkbox" id="es3" name="engagement" value="Mobile health app / SMS health tips"><label for="es3"><span class="en-lbl">Mobile health app / SMS health tips</span><span class="bn-lbl">মোবাইল স্বাস্থ্য অ্যাপ / এসএমএস</span></label></div>
+      <div class="ro"><input type="checkbox" id="es4" name="engagement" value="Group health challenges / step count programs"><label for="es4"><span class="en-lbl">Group health challenges / step programs</span><span class="bn-lbl">গ্রুপ স্বাস্থ্য চ্যালেঞ্জ</span></label></div>
+      <div class="ro"><input type="checkbox" id="es5" name="engagement" value="Open door HR policy for health concerns"><label for="es5"><span class="en-lbl">Open door HR policy for health concerns</span><span class="bn-lbl">স্বাস্থ্য উদ্বেগের জন্য এইচআরের উন্মুক্ত নীতি</span></label></div>
+      <div class="ro"><input type="checkbox" id="es6" name="engagement" value="Regular worker health forums / feedback sessions"><label for="es6"><span class="en-lbl">Regular worker health forums / feedback</span><span class="bn-lbl">নিয়মিত শ্রমিক স্বাস্থ্য ফোরাম</span></label></div>
+    </div>
+  </div>
+  <div class="nav"><button class="btn btn-o" onclick="next(6)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button><button class="btn btn-p" onclick="next(8)"><span class="en-t">Next</span><span class="bn-t" style="display:none">পরবর্তী</span> →</button></div>
+</div>
+
+<!-- S8: OVERALL RATING -->
+<div class="sc" id="s8">
+  <div class="sh"><div class="sn c-hr">8</div><div>
+    <div class="st c-hr">Overall Impact Rating & Final Comments <span class="bn">সামগ্রিক প্রভাব মূল্যায়ন ও চূড়ান্ত মন্তব্য</span></div>
+    <div class="ss"><span class="en-t">Your overall HR assessment of worker illness impact and any additional insights</span><span class="bn" style="display:none;font-family:var(--font-b)">শ্রমিকের অসুস্থতার প্রভাব সম্পর্কে আপনার সামগ্রিক এইচআর মূল্যায়ন</span></div>
+  </div></div>
+
+  <div class="fg"><label>Overall — how significantly does worker illness impact HR operations and factory productivity? <span class="req">*</span><span class="bn" style="display:none"> সামগ্রিকভাবে শ্রমিকের অসুস্থতা এইচআর কার্যক্রম ও কারখানার উৎপাদনশীলতাকে কতটা প্রভাবিত করে?</span></label>
+    <div class="rating-wrap">
+      <div class="rating-lbl">
+        <span><span class="en-t">No impact at all</span><span class="bn-t" style="display:none;font-family:var(--font-b)">কোনো প্রভাব নেই</span></span>
+        <span><span class="en-t">Extremely severe impact</span><span class="bn-t" style="display:none;font-family:var(--font-b)">অত্যন্ত তীব্র প্রভাব</span></span>
+      </div>
+      <div class="rating-opts">
+        <label><input type="radio" name="q_overall_rating" value="1">1<span class="sub en-t">No impact</span><span class="sub bn" style="display:none">নেই</span></label>
+        <label><input type="radio" name="q_overall_rating" value="2">2</label>
+        <label><input type="radio" name="q_overall_rating" value="3">3</label>
+        <label><input type="radio" name="q_overall_rating" value="4">4<span class="sub en-t">Moderate</span><span class="sub bn" style="display:none">মাঝারি</span></label>
+        <label><input type="radio" name="q_overall_rating" value="5">5</label>
+        <label><input type="radio" name="q_overall_rating" value="6">6</label>
+        <label><input type="radio" name="q_overall_rating" value="7">7<span class="sub en-t">Severe</span><span class="sub bn" style="display:none">তীব্র</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="fg"><label>Any additional HR observations, case examples, or recommendations not covered above? <span class="hint">(optional)</span><span class="bn" style="display:none"> উপরে অন্তর্ভুক্ত হয়নি এমন অতিরিক্ত এইচআর পর্যবেক্ষণ, কেস উদাহরণ বা সুপারিশ? (ঐচ্ছিক)</span></label>
+    <textarea id="q_comments" rows="5" placeholder="Share any specific HR policies, case studies, data points, or observations that may be useful for this research…&#10;&#10;এই গবেষণার জন্য দরকারী হতে পারে এমন নির্দিষ্ট এইচআর নীতি, কেস স্টাডি, তথ্য বা পর্যবেক্ষণ শেয়ার করুন…"></textarea>
+  </div>
+
+  <div class="err-b" id="submit-err"><span class="en-t">Submission failed. Please check your connection and try again.</span><span class="bn-t" style="display:none;font-family:var(--font-b)">জমা দিতে ব্যর্থ। ইন্টারনেট সংযোগ পরীক্ষা করুন।</span></div>
+  <div class="nav">
+    <button class="btn btn-o" onclick="next(7)">← <span class="en-t">Back</span><span class="bn-t" style="display:none">পেছনে</span></button>
+    <button class="btn btn-s" onclick="submitSurvey()"><span class="en-t">Submit Survey ✓</span><span class="bn-t" style="display:none;font-family:var(--font-b)">জরিপ জমা দিন ✓</span></button>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div class="sc" id="s-ok" style="display:none">
+  <div class="suc">
+    <div class="sico">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+        <circle cx="18" cy="18" r="17" stroke="#1d9e75" stroke-width="2"/>
+        <path d="M10 18l5.5 5.5L26 12" stroke="#1d9e75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2><span class="en-t">Thank You!</span><span class="bn-t" style="display:none;font-family:var(--font-b)">ধন্যবাদ!</span></h2>
+    <p><span class="en-t">Your HR expertise and insights have been recorded. This data will directly shape occupational health and HR policy recommendations for the Bangladesh RMG sector.</span><span class="bn-t" style="display:none;font-family:var(--font-b)">আপনার এইচআর দক্ষতা ও অন্তর্দৃষ্টি নথিভুক্ত হয়েছে। এই তথ্য বাংলাদেশ আরএমজি খাতের পেশাগত স্বাস্থ্য ও এইচআর নীতি সুপারিশকে সরাসরি আকার দেবে।</span></p>
+    <p style="margin-top:.75rem;font-size:12px;color:var(--g4)">Response ID: <code id="rid"></code></p>
+    <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--g2)">
+      <p style="font-size:13px;color:var(--g4);margin-bottom:1rem"><span class="en-t">Another HR professional wants to complete this survey?</span><span class="bn-t" style="display:none;font-family:var(--font-b)">অন্য কোনো এইচআর পেশাদার জরিপ পূরণ করতে চান?</span></p>
+      <button class="btn btn-p" onclick="resetForm()" style="font-size:15px;padding:12px 32px"><span class="en-t">+ Start Next Respondent</span><span class="bn-t" style="display:none;font-family:var(--font-b)">+ পরবর্তী উত্তরদাতা শুরু করুন</span></button>
+    </div>
+  </div>
+</div>
+
+</main>
+<footer>
+  <span class="en-t">Conducted under academic ethics approval. All responses are confidential and used for research only.</span>
+  <span class="bn-t" style="display:none;font-family:var(--font-b)">একাডেমিক নৈতিক অনুমোদনের অধীনে পরিচালিত। সকল উত্তর গোপনীয় ও শুধুমাত্র গবেষণার জন্য।</span><br>
+  © 2025 RMG Health Research Project — Bangladesh
+</footer>
+
+<!-- HIDDEN IFRAME + FORM -->
+<iframe name="hidden_frame" style="display:none"></iframe>
+<form id="hform" method="POST" target="hidden_frame" style="display:none">
+  <input type="hidden" name="timestamp">
+  <input type="hidden" name="response_id">
+  <input type="hidden" name="survey_lang">
+  <input type="hidden" name="hr_name">
+  <input type="hidden" name="hr_gender">
+  <input type="hidden" name="hr_role">
+  <input type="hidden" name="years_hr">
+  <input type="hidden" name="years_rmg">
+  <input type="hidden" name="factory_location">
+  <input type="hidden" name="factory_type">
+  <input type="hidden" name="workforce_size">
+  <input type="hidden" name="female_pct">
+  <input type="hidden" name="health_tracking_system">
+  <input type="hidden" name="health_data_collected">
+  <input type="hidden" name="monthly_absence_rate">
+  <input type="hidden" name="illness_absence_pct">
+  <input type="hidden" name="absenteeism_trend">
+  <input type="hidden" name="peak_absence_season">
+  <input type="hidden" name="peak_day_pattern">
+  <input type="hidden" name="common_absence_causes">
+  <input type="hidden" name="highest_absence_dept">
+  <input type="hidden" name="sick_leave_policy">
+  <input type="hidden" name="sick_leave_days">
+  <input type="hidden" name="paid_sick_leave">
+  <input type="hidden" name="maternity_policy">
+  <input type="hidden" name="health_insurance">
+  <input type="hidden" name="factory_clinic">
+  <input type="hidden" name="worker_compensation">
+  <input type="hidden" name="return_to_work_protocol">
+  <input type="hidden" name="disciplinary_action">
+  <input type="hidden" name="illness_turnover_impact">
+  <input type="hidden" name="annual_turnover_rate">
+  <input type="hidden" name="health_resignation_reasons">
+  <input type="hidden" name="replacement_cost_impact">
+  <input type="hidden" name="overtime_cost_illness">
+  <input type="hidden" name="retraining_cost_illness">
+  <input type="hidden" name="productivity_loss_est">
+  <input type="hidden" name="hr_challenges">
+  <input type="hidden" name="wellbeing_programs">
+  <input type="hidden" name="mental_health_support">
+  <input type="hidden" name="nutrition_support">
+  <input type="hidden" name="safety_training_freq">
+  <input type="hidden" name="health_committee">
+  <input type="hidden" name="doctor_clinic_collab">
+  <input type="hidden" name="ngo_health_partner">
+  <input type="hidden" name="wellbeing_budget">
+  <input type="hidden" name="priority_interventions">
+  <input type="hidden" name="policy_changes">
+  <input type="hidden" name="data_improvements">
+  <input type="hidden" name="engagement_strategies">
+  <input type="hidden" name="overall_impact_rating">
+  <input type="hidden" name="comments">
+</form>
+
+<script>
+// ============================================================
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbze27Q_wTgh92B_92TkWiUxM5ban3pKbmktDl-1h1mtxjW1TtvO2IAmd0QafLp-laVNrg/exec";
+// ============================================================
+const LABELS_EN = ["",
+  "Section 1 of 8 — Informed Consent",
+  "Section 2 of 8 — HR Professional Profile",
+  "Section 3 of 8 — Workforce Health Data & Absenteeism",
+  "Section 4 of 8 — HR Policies on Health & Leave",
+  "Section 5 of 8 — Impact on HR Operations",
+  "Section 6 of 8 — Wellbeing Programs & Initiatives",
+  "Section 7 of 8 — HR Recommendations",
+  "Section 8 of 8 — Overall Rating & Comments"
+];
+const LABELS_BN = ["",
+  "অনুচ্ছেদ ১/৮ — সম্মতি",
+  "অনুচ্ছেদ ২/৮ — এইচআর পেশাদারের পরিচয়",
+  "অনুচ্ছেদ ৩/৮ — স্বাস্থ্য তথ্য ও অনুপস্থিতি",
+  "অনুচ্ছেদ ৪/৮ — এইচআর নীতি",
+  "অনুচ্ছেদ ৫/৮ — এইচআর কার্যক্রমে প্রভাব",
+  "অনুচ্ছেদ ৬/৮ — কল্যাণ কর্মসূচি",
+  "অনুচ্ছেদ ৭/৮ — এইচআর সুপারিশ",
+  "অনুচ্ছেদ ৮/৮ — সামগ্রিক মূল্যায়ন"
+];
+let cur = 1, lang = "en";
+
+function setLang(l) {
+  lang = l;
+  document.body.className = l==="bn"?"bn":"";
+  document.getElementById("btn-en").className = "lang-btn"+(l==="en"?" active":"");
+  document.getElementById("btn-bn").className = "lang-btn bn-btn"+(l==="bn"?" active":"");
+  document.querySelectorAll(".en-t").forEach(function(el){el.style.display=l==="en"?"":"none";});
+  document.querySelectorAll(".bn-t").forEach(function(el){el.style.display=l==="bn"?"":"none";});
+  document.querySelectorAll(".bn").forEach(function(el){el.style.display=l==="bn"?"block":"none";});
+  document.querySelectorAll(".bn-lbl").forEach(function(el){el.style.display=l==="bn"?"block":"none";});
+  document.querySelectorAll(".en-lbl").forEach(function(el){el.style.display="block";});
+  document.querySelectorAll(".hdr-pill.en-t").forEach(function(el){el.style.display=l==="en"?"inline-block":"none";});
+  document.querySelectorAll(".hdr-pill.bn-p").forEach(function(el){el.style.display=l==="bn"?"inline-block":"none";});
+  var enh=document.querySelector(".hdr h1 .en-t");if(enh)enh.style.display=l==="en"?"":"none";
+  var bnh=document.querySelector(".hdr h1 .bn-h");if(bnh)bnh.style.display=l==="bn"?"":"none";
+  document.getElementById("sec-label").textContent=(l==="bn"?LABELS_BN:LABELS_EN)[cur]||"";
+}
+
+function next(n) {
+  if(n===2&&!document.getElementById("consent-chk").checked){
+    document.getElementById("consent-err").style.display="block";return;
+  }
+  document.getElementById("consent-err").style.display="none";
+  document.getElementById("s"+cur).classList.remove("active");
+  var pd=document.getElementById("dot"+cur);if(pd){pd.classList.remove("active");pd.classList.add("done");}
+  cur=n;
+  document.getElementById("s"+cur).classList.add("active");
+  var pct=Math.round((n/8)*100);
+  document.getElementById("prog-fill").style.width=pct+"%";
+  document.getElementById("sec-label").textContent=(lang==="bn"?LABELS_BN:LABELS_EN)[n]||"";
+  document.getElementById("sec-pct").textContent=pct+"%";
+  var nd=document.getElementById("dot"+n);if(nd){nd.classList.remove("done");nd.classList.add("active");}
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function radio(name){var el=document.querySelector("input[name='"+name+"']:checked");return el?el.value:"";}
+function checks(name){return Array.from(document.querySelectorAll("input[name='"+name+"']:checked")).map(function(e){return e.value;}).join(", ");}
+function sf(name,val){var el=document.querySelector("#hform input[name='"+name+"']");if(el)el.value=val||"";}
+function genId(){return "HR-"+Date.now().toString(36).toUpperCase()+"-"+Math.random().toString(36).substr(2,4).toUpperCase();}
+
+function submitSurvey(){
+  document.getElementById("submit-err").style.display="none";
+  document.getElementById("overlay").style.display="flex";
+  var rid=genId();
+  sf("timestamp",              new Date().toISOString());
+  sf("response_id",            rid);
+  sf("survey_lang",            lang);
+  sf("hr_name",                document.getElementById("q_name").value);
+  sf("hr_gender",              document.getElementById("q_gender").value);
+  sf("hr_role",                document.getElementById("q_role").value);
+  sf("years_hr",               document.getElementById("q_yrs_hr").value);
+  sf("years_rmg",              document.getElementById("q_yrs_rmg").value);
+  sf("factory_location",       document.getElementById("q_location").value);
+  sf("factory_type",           document.getElementById("q_ftype").value);
+  sf("workforce_size",         document.getElementById("q_workforce").value);
+  sf("female_pct",             document.getElementById("q_female_pct").value);
+  sf("health_tracking_system", radio("q_track_sys"));
+  sf("health_data_collected",  checks("health_data"));
+  sf("monthly_absence_rate",   document.getElementById("q_abs_rate").value);
+  sf("illness_absence_pct",    document.getElementById("q_illness_pct").value);
+  sf("absenteeism_trend",      document.getElementById("q_trend").value);
+  sf("peak_absence_season",    document.getElementById("q_peak_season").value);
+  sf("peak_day_pattern",       document.getElementById("q_day_pattern").value);
+  sf("common_absence_causes",  checks("abs_causes"));
+  sf("highest_absence_dept",   document.getElementById("q_highest_dept").value);
+  sf("sick_leave_policy",      radio("q_sick_policy"));
+  sf("sick_leave_days",        document.getElementById("q_leave_days").value);
+  sf("paid_sick_leave",        document.getElementById("q_paid_leave").value);
+  sf("maternity_policy",       radio("q_maternity"));
+  sf("health_insurance",       document.getElementById("q_insurance").value);
+  sf("factory_clinic",         document.getElementById("q_clinic").value);
+  sf("worker_compensation",    document.getElementById("q_compensation").value);
+  sf("return_to_work_protocol",document.getElementById("q_rtw").value);
+  sf("disciplinary_action",    radio("q_discipline"));
+  sf("illness_turnover_impact",radio("q_turnover_impact"));
+  sf("annual_turnover_rate",   document.getElementById("q_turnover_rate").value);
+  sf("health_resignation_reasons",checks("health_resign"));
+  sf("replacement_cost_impact","");
+  sf("overtime_cost_illness",  "");
+  sf("retraining_cost_illness","");
+  sf("productivity_loss_est",  document.getElementById("q_prod_loss").value);
+  sf("hr_challenges",          checks("hr_challenges"));
+  sf("wellbeing_programs",     checks("wellbeing"));
+  sf("mental_health_support",  radio("q_mh_support"));
+  sf("nutrition_support",      "");
+  sf("safety_training_freq",   document.getElementById("q_training_freq").value);
+  sf("health_committee",       document.getElementById("q_committee").value);
+  sf("doctor_clinic_collab",   document.getElementById("q_clinic_collab").value);
+  sf("ngo_health_partner",     document.getElementById("q_ngo").value);
+  sf("wellbeing_budget",       radio("q_budget"));
+  sf("priority_interventions", checks("priority_int"));
+  sf("policy_changes",         checks("policy_changes"));
+  sf("data_improvements",      checks("data_improvements"));
+  sf("engagement_strategies",  checks("engagement"));
+  sf("overall_impact_rating",  radio("q_overall_rating"));
+  sf("comments",               document.getElementById("q_comments").value);
+  document.getElementById("hform").action=SCRIPT_URL;
+  document.getElementById("hform").submit();
+  setTimeout(function(){
+    document.getElementById("overlay").style.display="none";
+    document.getElementById("s8").classList.remove("active");
+    document.getElementById("s-ok").style.display="block";
+    document.getElementById("rid").textContent=rid;
+    document.getElementById("prog-fill").style.width="100%";
+    document.getElementById("sec-label").textContent=lang==="bn"?"জরিপ সম্পন্ন":"Survey Complete";
+    document.getElementById("sec-pct").textContent="100%";
+    window.scrollTo({top:0,behavior:"smooth"});
+  },2000);
+}
+
+function resetForm(){
+  document.querySelectorAll("input[type=text],input[type=number],textarea").forEach(function(el){el.value="";});
+  document.querySelectorAll("select").forEach(function(el){el.selectedIndex=0;});
+  document.querySelectorAll("input[type=radio],input[type=checkbox]").forEach(function(el){el.checked=false;});
+  document.getElementById("s-ok").style.display="none";
+  cur=1;
+  for(var i=1;i<=8;i++){var d=document.getElementById("dot"+i);if(d)d.className="dot"+(i===1?" active":"");}
+  document.getElementById("s1").classList.add("active");
+  document.getElementById("prog-fill").style.width="12.5%";
+  document.getElementById("sec-label").textContent=(lang==="bn"?LABELS_BN:LABELS_EN)[1];
+  document.getElementById("sec-pct").textContent="13%";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+setLang("en");
+</script>
+</body>
+</html>
